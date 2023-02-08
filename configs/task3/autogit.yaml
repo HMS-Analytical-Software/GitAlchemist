@@ -1,0 +1,58 @@
+title: Task 3
+# Idea of the task: create new feature branch and do some code changes to work with add commit push --> then merge to master
+commands:
+  -
+    init_bare_repo:
+      bare: remotes/task3
+      clone_to: task3
+  -
+    execute_autogit_tasks:
+      skip: False
+      tasks:
+        - task2
+  -
+    remove_and_commit:
+      files: 
+      - notes-timeline.txt
+      message: cleanup timeline notes
+      author: red    
+  -
+    remove_and_commit:
+      files: 
+      - project_plan.md
+      - contacts.md
+      message: remove project plan and contacts file (development is starting now!)
+      author: blue     
+  -
+    create_add_commit:
+      files: 
+      - files/main_v1.py => main.py
+      message: added small visual improvements to output
+      author: blue
+  -
+    create_add_commit:
+      files: 
+      - files/main_v2.py => main.py
+      message: added random support to improve password strength
+      author: blue 
+  -
+    create_add_commit:
+      files: 
+      - files/main_v3.py => main.py
+      message: wip
+      author: blue
+  -
+    create_add_commit:
+      files: 
+      - files/main_v4.py => main.py
+      message: password is now created from suffix, prefix and middle part
+      author: blue 
+  -
+    create_add_commit:
+      files: 
+      - files/main_v5.py => main.py
+      message: added seed for the randomly generated middle part
+      author: blue
+  -
+    git:
+      command: "git push origin master"

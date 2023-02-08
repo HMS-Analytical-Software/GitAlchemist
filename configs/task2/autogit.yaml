@@ -1,0 +1,76 @@
+title: Task 2
+commands:
+  -
+    init_bare_repo:
+      bare: remotes/task2
+      clone_to: task2
+  -
+    execute_autogit_tasks:
+      skip: False
+      tasks:
+        - task1
+  -
+    create_add_commit:
+      files: 
+      - files/notes-constraints.txt => notes-constraints.txt
+      message: notes for possible constraints
+      author: red       
+  -
+    create_add_commit:
+      files: 
+      - files/notes-devs.txt => notes-devs.txt
+      - files/notes-timeline.txt => notes-timeline.txt
+      message: more notes
+      author: red    
+  -
+    create_add_commit:
+      files: 
+      - files/project_plan_v1.md => project_plan.md
+      message: added project plan template
+      author: red 
+  -
+    create_add_commit:
+      files: 
+      - files/project_plan_v2.md => project_plan.md
+      message: added project summary
+      author: red  
+  -
+    create_add_commit:
+      files: 
+      - files/project_plan_v3.md => project_plan.md
+      message: removed unnecessary parts of the project plan
+      author: red   
+  -
+    create_add_commit:
+      files: 
+      - files/project_plan_v4.md => project_plan.md
+      message: wip
+      author: red
+  -
+    create_add_commit:
+      files: 
+      - files/project_plan_v5.md => project_plan.md
+      message: removed assumptions
+      author: red  
+  -
+    create_add_commit:
+      files: 
+      - files/project_plan_v6.md => project_plan.md
+      message: added objectives and finalized project plan
+      author: red   
+  -
+    remove_and_commit:
+      files: 
+      - notes-constraints.txt
+      - notes-devs.txt
+      message: cleanup notes
+      author: red 
+  -
+    create_add_commit:
+      files: 
+      - files/contacts.md => contacts.md
+      message: added developer contacts
+      author: red      
+  -
+    git:
+      command: "git push origin master"

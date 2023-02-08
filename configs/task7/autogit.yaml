@@ -1,0 +1,113 @@
+title: Task 7
+# Idea of the task: Playing a bit with the rebase commit options
+# E.g. remove commit messages of fix up commits like typos or redefine commit message
+# Branch is adding some print functionality to have something easily adjustable.
+commands:
+  -
+    init_bare_repo:
+      bare: remotes/task7
+      clone_to: task7
+  -
+    execute_autogit_tasks:
+      skip: True
+      tasks:
+        - task5
+  -
+    git:
+      command: "git checkout feature/add_special_characters_to_password_characters"
+  -
+    create_file:
+      source: files/generator_v1.py
+      target: generator.py
+  -
+    create_file:
+      source: files/main_v1.py
+      target: main.py
+  -
+    add:
+      files:
+        - main.py
+        - generator.py
+  -
+    commit:
+      message: Adjust generator and main to align with master
+      author: blue
+  -
+    merge:
+      source: feature/add_special_characters_to_password_characters
+      target: master
+      delete_source: True
+
+  -
+    git:
+      command: "git checkout -b feature/add_print_meta_data_functionality"
+  -
+    create_file:
+      source: files/generator_v2.py
+      target: generator.py
+  -
+    create_file:
+      source: files/main_v2.py
+      target: main.py
+  -
+    add:
+      files:
+        - main.py
+        - generator.py
+  -
+    commit:
+      message: Add new meta data print method
+      author: red
+  -
+    create_add_commit:
+        source: files/generator_v3.py
+        target: generator.py
+        message: Fix error
+        author: red
+  -
+    create_add_commit:
+      source: files/generator_v4.py
+      target: generator.py
+      message: Fix typo
+      author: red
+  -
+    create_file:
+      source: files/generator_v5.py
+      target: generator.py
+  -
+    create_file:
+      source: files/main_v3.py
+      target: main.py
+  -
+    add:
+      files:
+        - main.py
+        - generator.py
+  -
+    commit:
+      message: Remove password printing and instead add password characters to meta data print
+      author: red
+  -
+    create_add_commit:
+      source: files/generator_v6.py
+      target: generator.py
+      message: Fix comment
+      author: red
+  -
+    git:
+      command: "git checkout -b feature/playing_with_rebase_1"
+  -
+    git:
+      command: "git push -u origin feature/playing_with_rebase_1"
+  -
+   git:
+      command: "git checkout -b feature/playing_with_rebase_2"
+  -
+    git:
+      command: "git push -u origin feature/playing_with_rebase_2"
+  -
+    git:
+      command: "git checkout feature/add_print_meta_data_functionality"
+  -
+    git:
+      command: "git push -u origin feature/add_print_meta_data_functionality"

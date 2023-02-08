@@ -1,0 +1,17 @@
+title: Task 0
+# Idea of the task: Play a bit with git log and git diff; also use pull to get the latest branch
+commands:
+  -
+    init_bare_repo:
+      bare: remotes/task0
+      clone_to: 'task0'
+  -
+    create_add_commit:
+      files:
+        - files/hello.py => hello.py
+        - files/README.md => README.md
+      message: hello world
+      author: red
+  -
+    git:
+      command: "git push origin master"

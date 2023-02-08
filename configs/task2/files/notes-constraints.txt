@@ -1,0 +1,3 @@
+- We only have two python developers available
+- No experience with crypto stuff / security -> research needed
+- Project needs to be finished end of the year

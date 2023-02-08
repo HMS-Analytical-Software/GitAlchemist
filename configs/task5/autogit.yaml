@@ -1,0 +1,100 @@
+title: Task 5
+# Idea of the task: Have to solve a simple merge conflict using git merge
+commands:
+  -
+    init_bare_repo:
+      bare: remotes/task5
+      clone_to: task5
+  -
+    execute_autogit_tasks:
+      skip: False
+      tasks:
+        - task4
+  -
+    git:
+      command: "git branch -d feature/generator_with_random_numbers_and_letters_2"
+  -
+    git:
+      command: "git push origin --delete feature/generator_with_random_numbers_and_letters_2"
+  -
+    git:
+        command: "git checkout -b feature/generator_with_random_numbers_and_letters_1"
+  -
+    git:
+      command: "git rebase master"
+  -
+    create_add_commit:
+      source: files/generator_v1.py
+      target: generator.py
+      message: Remove static seed from random password generator
+      author: blue
+  -
+    create_file:
+      source: files/generator_v2.py
+      target: generator.py
+  -
+    create_file:
+      source: files/main_v1.py
+      target: main.py
+  -
+    add:
+      files:
+        - main.py
+        - generator.py
+  -
+    commit:
+      message: Add adjustable password length
+      author: blue
+  -
+    git:
+      command: "git checkout master"
+  -
+    git:
+      command: "git merge feature/generator_with_random_numbers_and_letters_1"
+  -
+    git:
+      command: "git branch -D feature/generator_with_random_numbers_and_letters_1"
+  -
+    git:
+      command: "git push origin --delete feature/generator_with_random_numbers_and_letters_1"
+  -
+    git:
+      command: "git checkout -b feature/add_special_characters_to_password_characters"
+  -
+    git:
+      command: "git checkout -b feature/adjustable_password_characters"
+  -
+    create_add_commit:
+      source: files/generator_v3.py
+      target: generator.py
+      message: Make selection of password characters adjustable in constructor
+      author: red
+  -
+    create_add_commit:
+      source: files/main_v2.py
+      target: main.py
+      message: Print password with and without digits
+      author: red
+  -
+    merge:
+      source: feature/adjustable_password_characters
+      target: master
+      delete_source: True
+  -
+    git:
+      command: "git push -u origin master"
+  -
+    git:
+      command: "git branch -d feature/adjustable_password_characters"
+  -
+    git:
+      command: "git checkout feature/add_special_characters_to_password_characters"
+  -
+    create_add_commit:
+      source: files/generator_v4.py
+      target: generator.py
+      message: Add special characters to password characters
+      author: blue
+  -
+    git:
+      command: "git push -u origin feature/add_special_characters_to_password_characters"
