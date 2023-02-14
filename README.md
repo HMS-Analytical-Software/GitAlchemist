@@ -1,6 +1,6 @@
 # Autogit
 
-Autogit is a small framework for creating bare repositories from config files with a pre-defined history of commits. It is planned to use this tool to create tasks for the git workhop. Core of this tool are so-called `autogit.yaml` files which define a series of actions for virtual (fake) users like creating files or execute git commands.
+Autogit is a small framework for creating bare repositories from config files with a pre-defined history of commits. The primary purpose of this tool is setting up local git environments for teaching purposes, i.e. git workshops. At the core of this tool are so-called `autogit.yaml` files which define a series of actions for virtual (fake) users like creating files or executing git commands.
 
 ## Example
 
