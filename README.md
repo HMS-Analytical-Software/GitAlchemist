@@ -15,7 +15,7 @@ The below example will create a git repository with two commits.
 - The third command does the same for another file
 - The last command pushes the working directory to the bare repo
 
-```
+```yaml
 title: Example Task
 commands:
   -
@@ -43,7 +43,7 @@ commands:
 Assuming windows as dev environment you can execute the tool as follows after you
 cloned the repo (tested only with Python 3.10):
 
-```
+```bash
 py -m venv venv
 . venv/scripts/activate
 pip install streamlit streamlit-ace pydantic pyyaml
