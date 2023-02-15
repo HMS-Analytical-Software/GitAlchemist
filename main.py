@@ -7,13 +7,13 @@ import time
 from streamlit_ace import st_ace
 from autogit.task import AutoGitTask
 from autogit.config_model import AutoGitConfig
+from autogit.config_env import git_path
 
 st.set_page_config(layout="wide")
 st.title('Autogit')
 
-
-working_dir=f'cwd\\cwd_{time.time()}'
-gitbash = "C:\\Program Files\\Git\\git-bash.exe"
+working_dir = os.path.join("cwd", "cwd", f"{time.time()}")
+# gitbash = "C:\\Program Files\\Git\\git-bash.exe"
 
 
 # delete everything in the working dirs if possible (does not work sometimes, 
@@ -76,14 +76,15 @@ with c1:
         )
         # execute the task
         task = AutoGitTask.parse(config)
+        st.write(config)
         task.execute()
 
 with c2: 
     if terminal and task_name != 'Select Task':
         try:
             print("open git bash")
-            subprocess.call([gitbash , f"--cd={os.getcwd()}\\{working_dir}\\{config.current_repo}"])
+            subprocess.call([git_path , f"--cd={os.getcwd()}{os.path.sep}{working_dir}{os.path.sep}{config.current_repo}"])
         except:
             print("git-bash.exe not found")
 
-    
+

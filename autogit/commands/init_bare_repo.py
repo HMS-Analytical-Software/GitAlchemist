@@ -51,11 +51,16 @@ class CMDInitBareRepo(CMDBaseModel):
 
         # update origin to relative path
         os.chdir(cmd.clone_to)
+        cmd.log("cd", cmd.clone_to)
         cmd.os_system(f'git remote set-url origin ../{cmd.bare}')
+
+        # set git config otherwise subsequent commits will fail
+        cmd.os_system(f"git config user.name '{config.authors.get('red')}'")
+        cmd.os_system(f"git config user.email '{config.emails.get('red')}'")
 
         # set the current_repo parameter in config file
         config.current_repo = cmd.clone_to
-        cmd.log(f"set config.current_repo to {cmd.clone_to}")
+        cmd.log(f"In {__name__}: set config.current_repo to {cmd.clone_to}")
 
         # go back to original cwd
         os.chdir(save_cwd)

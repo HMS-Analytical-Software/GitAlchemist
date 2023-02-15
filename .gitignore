@@ -13,3 +13,4 @@ venv
 .idea
 cwd
 configs/old
+autogit_venv
