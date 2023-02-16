@@ -25,17 +25,19 @@ class CMDBaseModel(BaseModel):
 
     @contextlib.contextmanager
     def current_repo(self, config: AutoGitConfig) -> Generator[Tuple[Path, Path], None, None]:
-        dir_root = Path(config.root_dir)
+        dir_root = config.root_dir
         assert (dir_root.exists())
 
-        configs_dir = dir_root.joinpath("configs")
-        assert (configs_dir.exists())
+        #configs_dir = dir_root.joinpath("configs")
+        assert (config.config_dir.exists())
 
-        configs_task_dir = configs_dir.joinpath(config.task)
+        configs_task_dir = config.config_dir / config.task
         assert (configs_task_dir.exists())
 
         try:
-            repo_dir = dir_root.joinpath(config.working_dir).joinpath(config.current_repo)
+            #import pdb; pdb.set_trace()
+            #repo_dir = dir_root.joinpath(config.working_dir).joinpath(config.current_repo)
+            repo_dir = config.root_dir / config.current_repo
             assert (repo_dir.exists)
             os.chdir(repo_dir)
             #self.log(f"cd {config.working_dir}")
