@@ -30,7 +30,8 @@ class AutoGitTask():
 
     @staticmethod
     def parse(config: AutoGitConfig):
-        path = Path(f"./configs/{config.task}/autogit.yaml")
+        #path = Path(f"./configs/{config.task}/autogit.yaml")
+        path = Path.joinpath(config.config_dir, config.task, "autogit.yaml")
         return AutoGitTask(AutoGitTaskModel(
             **yaml.safe_load(path.read_text())),
             config

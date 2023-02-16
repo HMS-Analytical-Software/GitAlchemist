@@ -1,0 +1,7 @@
+title: Task init_bare_repo test
+# Idea of the task: Play a bit with git log and git diff; also use pull to get the latest branch
+commands:
+  -
+    init_bare_repo:
+      bare: remotes/task0
+      clone_to: 'task0'
