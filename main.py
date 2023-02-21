@@ -12,14 +12,13 @@ from autogit.config_model import AutoGitConfig
 from autogit.config_env import git_path
 
 
-working_dir = os.path.join("cwd", "cwd", f"{time.time()}")
+working_dir = os.path.join("cwd", f"{time.time()}")
 
 # delete everything in the working dirs if possible (does not work sometimes, 
 # just wait and delete later)
 shutil.rmtree('cwd', ignore_errors=True)
 
-my_task = "init_bare_repo"
-
+my_task = "create_add_commit"
 
 config = AutoGitConfig(
     task=my_task,

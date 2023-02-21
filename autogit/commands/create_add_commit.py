@@ -27,7 +27,7 @@ class CMDCreateAddCommit(CMDBaseModel):
                     raise RuntimeError("each entry in create_add_commit.files must be of form \"val1 => val2\"")
 
                 # create
-                source = task.joinpath(splitted[0].strip())
+                source = config.root_dir / task.joinpath(splitted[0].strip())
                 target = repo.joinpath(splitted[1].strip())
 
                 # copy source to target
