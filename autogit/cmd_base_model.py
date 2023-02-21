@@ -6,6 +6,7 @@ import time
 from typing import Tuple
 from pydantic import BaseModel
 from autogit.config_model import AutoGitConfig
+from autogit.exceptions import GitCommandError
 from collections.abc import Generator
 
 
@@ -16,7 +17,10 @@ class CMDBaseModel(BaseModel):
 
     def os_system(self, command: str) -> int:
         self.log(command)
-        return os.system(command)
+        exit_status = os.system(command)
+        if exit_status != 0:
+            raise GitCommandError(f"One of the `git` commands failed, exit_status is {exit_status}")
+        return exit_status
 
     def os_cp(self, source: Path, target: Path):
         self.log("cp", source, target)

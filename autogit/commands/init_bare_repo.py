@@ -4,51 +4,53 @@ import os
 from typing import Literal
 from autogit.cmd_base_model import CMDBaseModel
 from autogit.config_model import AutoGitConfig
+from autogit.exceptions import GitCommandError
+import pdb
 
 
 class CMDInitBareRepo(CMDBaseModel):
     cmd_type: Literal['init_bare_repo']
     bare: str
     clone_to: str
+    root_dir: Path = None
+    working_dir: Path = None
+    bare_dir: Path = None
+    repo_dir: Path = None
 
     @staticmethod
     def execute(cmd: 'CMDInitBareRepo', config: AutoGitConfig):
-        #dir_root = Path(config.root_dir)
         assert(config.root_dir.exists())
-        os.chdir(config.root_dir)
-
-        # the current working directly
-        # dir_cwd = dir_root.joinpath(config.working_dir)
-        # dir_cwd.mkdir(exist_ok=True, parents=True)
-
-        # create the remote repo
         if not cmd.bare.startswith("remotes/"):
             raise RuntimeWarning("bare parameter of init_bare_repo should always start with remotes/")
-        bare_dir = config.root_dir.joinpath(cmd.bare)
-        bare_dir.mkdir(exist_ok=True, parents=True)
-        #bare_dir = dir_cwd.joinpath(cmd.bare)
-        #bare_dir.mkdir(exist_ok=False, parents=True)
+        
+        save_cwd = os.getcwd()
 
-        # save cwd
-        #save_cwd = os.getcwd()
+        cmd.root_dir = Path(config.root_dir)
+        cmd.working_dir = cmd.root_dir.joinpath(config.working_dir)
+        cmd.working_dir.mkdir(exist_ok=True, parents=True)
+        cmd.bare_dir = cmd.working_dir.joinpath(cmd.bare)
+        cmd.bare_dir.mkdir(exist_ok=True, parents=True)
 
         # switch to the bare repository folder
-        os.chdir(bare_dir)
-        cmd.log("cd", bare_dir)
+        os.chdir(cmd.bare_dir)
+        cmd.log("cd", cmd.bare_dir)
 
         # create a new bare git repo by calling the below command
         cmd.os_system("git --bare init .")
 
         # go back to dir_cwd
-        os.chdir(config.root_dir)
-        cmd.log("cd", config.root_dir)
+        os.chdir(cmd.working_dir)
+        cmd.log("cd", cmd.working_dir)
 
         # delete the working repo if it already exists
-        repo_dir = config.root_dir.joinpath(cmd.clone_to)
-        if repo_dir.exists():
-            cmd.log("rm", repo_dir)
-            shutil.rmtree(repo_dir)
+        cmd.repo_dir = cmd.working_dir.joinpath(cmd.clone_to)
+        if cmd.repo_dir.exists():
+            cmd.log("rm", cmd.repo_dir)
+            shutil.rmtree(cmd.repo_dir)
 
+        ## TO DO: cmd.bare and cmd.clone_to are currently relative paths
+        ## this is in some way redundant with cmd.bare_dir and cmd.repo_dir so may want to 
+        ## convert this to absolute paths but need to check dependency of config.current_repo below first
         # clone the newly created repo into the repo_dir folder
         cmd.os_system(f'git clone {cmd.bare} {cmd.clone_to}')
 
@@ -63,7 +65,8 @@ class CMDInitBareRepo(CMDBaseModel):
 
         # set the current_repo parameter in config file
         config.current_repo = cmd.clone_to
-        cmd.log(f"In {__name__}: set config.current_repo to {cmd.clone_to}")
+        cmd.log(f"# In {__name__}: set config.current_repo to {cmd.clone_to}")
 
         # go back to original cwd
-        os.chdir(config.root_dir)
+        os.chdir(save_cwd)
+        cmd.log("cd", save_cwd)
