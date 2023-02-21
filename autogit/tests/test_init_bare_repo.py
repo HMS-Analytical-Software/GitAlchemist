@@ -19,7 +19,7 @@ class ConfigBuilder:
     def __init__(self, root_dir, config_dir=my_config_dir, working_dir=my_working_dir):
         self.root_dir = root_dir
         self.config_dir = config_dir
-        self.working_dir = working_dir
+        self.working_dir = root_dir / working_dir
 
     def create(self, task_name):
         config = AutoGitConfig(
@@ -54,11 +54,14 @@ def test_init_bare_repo(config_builder: ConfigBuilder):
     config = config_builder.create(task_name="init_bare_repo")
     task = AutoGitTask.parse(config)
     task.execute()
+    os.chdir(config.bare_dir)
+    assert os.system("git rev-parse --is-bare-repository") == 0
+    assert Path(config.repo_dir / '.git').exists()
 
 
 def test_create_add_commit(config_builder: ConfigBuilder):
     config = config_builder.create(task_name="create_add_commit")
     task = AutoGitTask.parse(config)
-    pdb.set_trace()
     task.execute()
-
+    os.chdir(config.repo_dir)
+    assert int(os.popen("git rev-list --count HEAD").read().strip()) == 1

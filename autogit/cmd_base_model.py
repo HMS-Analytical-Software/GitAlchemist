@@ -40,12 +40,10 @@ class CMDBaseModel(BaseModel):
 
         try:
             #import pdb; pdb.set_trace()
-            #repo_dir = dir_root.joinpath(config.working_dir).joinpath(config.current_repo)
-            repo_dir = config.root_dir / config.current_repo
-            assert (repo_dir.exists)
+            repo_dir = config.root_dir / config.working_dir / config.current_repo
+            assert (repo_dir.exists())
             os.chdir(repo_dir)
-            #self.log(f"cd {config.working_dir}")
-            #os.chdir(config.working_dir)
+            self.log(f"cd {config.working_dir}")
             yield repo_dir, configs_task_dir
         finally:
             self.log(f"cd back to root dir ({dir_root})")

@@ -1,4 +1,4 @@
-title: Task init_bare_repo test
+title: Task create_add_commit
 # Idea of the task: Play a bit with git log and git diff; also use pull to get the latest branch
 commands:
   -

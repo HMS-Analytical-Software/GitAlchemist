@@ -21,12 +21,6 @@ shutil.rmtree('cwd', ignore_errors=True)
 my_task = "init_bare_repo"
 
 
-#configfile = Path(os.getcwd()).joinpath('configs').joinpath(my_task).joinpath("autogit.yaml")
-
-# import pdb; pdb.set_trace()
-
-#configfile.write_text(configfile.read_text())
-
 config = AutoGitConfig(
     task=my_task,
     root_dir=os.getcwd(),
@@ -44,15 +38,6 @@ config = AutoGitConfig(
     }
 )
 
-# %%
-
-#my_auto_git_task_model = AutoGitTaskModel(**yaml.safe_load(configfile.read_text()))
-#pdb.set_trace()
-
-# execute the task
 task = AutoGitTask.parse(config)
-
-# %%
 task.execute()
 
-# %%
