@@ -1,0 +1,20 @@
+title: remove_and_commit
+# Idea of the task: create new feature branch and do some code changes to work with add commit push --> then merge to master
+commands:
+  -
+    init_bare_repo:
+      bare: remotes/task0
+      clone_to: task0
+  -
+    create_add_commit:
+      files:
+        - files/hello.py => hello.py
+        - files/notes-timeline.txt => notes-timeline.txt
+      message: hello world
+      author: red
+  -
+    remove_and_commit:
+      files: 
+      - notes-timeline.txt
+      message: cleanup timeline notes
+      author: red

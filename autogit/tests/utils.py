@@ -1,12 +1,12 @@
 from autogit.config_model import AutoGitConfig
 
 class ConfigBuilder:
-    def __init__(self, root_dir, config_dir, working_dir):
+    def __init__(self, root_dir):#, config_dir, working_dir):
         self.root_dir = root_dir
-        self.config_dir = config_dir
-        self.working_dir = root_dir / working_dir
 
-    def create(self, task_name):
+    def create(self, task_name, config_dir, rel_working_dir):
+        self.config_dir = config_dir
+        self.working_dir = self.root_dir / rel_working_dir
         config = AutoGitConfig(
             task=task_name,
             root_dir=self.root_dir,

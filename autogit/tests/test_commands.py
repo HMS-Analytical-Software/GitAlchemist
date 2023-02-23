@@ -14,12 +14,12 @@ print(f"__name__: {__name__}")
 print(f"sys.path: {sys.path}")
 
 my_config_dir = Path("test_configs").resolve()
-my_working_dir = os.path.join("cwd", f"{time.time()}")
+my_rel_working_dir = Path("cwd", f"{time.time()}")
 
 
 @pytest.fixture
 def config_builder(tmp_path):
-    return ConfigBuilder(root_dir=tmp_path, config_dir=my_config_dir, working_dir=my_working_dir)
+    return ConfigBuilder(root_dir=tmp_path)
 
 
 def test_git_path(git_path=config_env.git_path):
@@ -27,7 +27,7 @@ def test_git_path(git_path=config_env.git_path):
 
 
 def test_init_bare_repo(config_builder: ConfigBuilder):
-    config = config_builder.create(task_name="init_bare_repo")
+    config = config_builder.create(task_name="init_bare_repo", config_dir=my_config_dir, rel_working_dir=my_rel_working_dir)
     task = AutoGitTask.parse(config)
     task.execute()
     os.chdir(config.bare_dir)
@@ -37,7 +37,7 @@ def test_init_bare_repo(config_builder: ConfigBuilder):
 
 
 def test_create_add_commit(config_builder: ConfigBuilder):
-    config = config_builder.create(task_name="create_add_commit")
+    config = config_builder.create(task_name="create_add_commit", config_dir=my_config_dir, rel_working_dir=my_rel_working_dir)
     task = AutoGitTask.parse(config)
     task.execute()
     os.chdir(config.repo_dir)
@@ -46,3 +46,11 @@ def test_create_add_commit(config_builder: ConfigBuilder):
     assert os.popen("git log -1 --pretty=%B").read().strip() == "hello world"
     assert os.path.exists("hello.py")
     assert os.path.exists("README.md")
+
+
+def test_remove_and_commit(config_builder: ConfigBuilder):
+    config = config_builder.create(task_name="remove_and_commit", config_dir=my_config_dir, rel_working_dir=my_rel_working_dir)
+    task = AutoGitTask.parse(config)
+    task.execute()
+    assert not os.path.exists("notes-timeline.txt")
+
