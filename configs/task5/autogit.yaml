@@ -29,20 +29,10 @@ commands:
       message: Remove static seed from random password generator
       author: blue
   -
-    create_file:
-      source: files/generator_v2.py
-      target: generator.py
-  -
-    create_file:
-      source: files/main_v1.py
-      target: main.py
-  -
-    add:
+    create_add_commit:
       files:
-        - main.py
-        - generator.py
-  -
-    commit:
+        - files/generator_v2.py => generator.py
+        - files/main_v1.py => main.py
       message: Add adjustable password length
       author: blue
   -
