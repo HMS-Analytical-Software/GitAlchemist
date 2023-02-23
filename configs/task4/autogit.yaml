@@ -66,20 +66,10 @@ commands:
       message: Use letters and numbers for password generation
       author: blue
   -
-    create_file:
-      source: files/generator_v5.py
-      target: generator.py
-  -
-    create_file:
-      source: files/main_v2.py
-      target: main.py
-  -
-    add:
+    create_add_commit:
       files:
-        - main.py
-        - generator.py
-  -
-    commit:
+        - files/generator_v5.py => generator.py
+        - files/main_v2.py => main.py
       message: Create separate method for password generation
       author: blue
   -

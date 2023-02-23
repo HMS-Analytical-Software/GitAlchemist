@@ -9,27 +9,17 @@ commands:
       clone_to: task7
   -
     execute_autogit_tasks:
-      skip: True
+      skip: False
       tasks:
-        - task5
+        - task6
   -
     git:
       command: "git checkout feature/add_special_characters_to_password_characters"
   -
-    create_file:
-      source: files/generator_v1.py
-      target: generator.py
-  -
-    create_file:
-      source: files/main_v1.py
-      target: main.py
-  -
-    add:
+    create_add_commit:
       files:
-        - main.py
-        - generator.py
-  -
-    commit:
+        - files/generator_v1.py => generator.py
+        - files/main_v1.py => main.py
       message: Adjust generator and main to align with master
       author: blue
   -
@@ -37,25 +27,20 @@ commands:
       source: feature/add_special_characters_to_password_characters
       target: master
       delete_source: True
-
+  -
+    git:
+      command: "git branch -D feature/add_special_characters_to_password_characters"
+  -
+    git:
+      command: "git push origin --delete feature/add_special_characters_to_password_characters"
   -
     git:
       command: "git checkout -b feature/add_print_meta_data_functionality"
   -
-    create_file:
-      source: files/generator_v2.py
-      target: generator.py
-  -
-    create_file:
-      source: files/main_v2.py
-      target: main.py
-  -
-    add:
+    create_add_commit:
       files:
-        - main.py
-        - generator.py
-  -
-    commit:
+        - files/generator_v2.py => generator.py
+        - files/main_v2.py => main.py
       message: Add new meta data print method
       author: red
   -
@@ -71,20 +56,10 @@ commands:
       message: Fix typo
       author: red
   -
-    create_file:
-      source: files/generator_v5.py
-      target: generator.py
-  -
-    create_file:
-      source: files/main_v3.py
-      target: main.py
-  -
-    add:
+    create_add_commit:
       files:
-        - main.py
-        - generator.py
-  -
-    commit:
+        - files/generator_v5.py => generator.py
+        - files/main_v3.py => main.py
       message: Remove password printing and instead add password characters to meta data print
       author: red
   -
@@ -108,6 +83,3 @@ commands:
   -
     git:
       command: "git checkout feature/add_print_meta_data_functionality"
-  -
-    git:
-      command: "git push -u origin feature/add_print_meta_data_functionality"
