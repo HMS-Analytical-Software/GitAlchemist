@@ -1,0 +1,18 @@
+title: git_push
+# Idea of the task: Play a bit with git log and git diff; also use pull to get the latest branch
+commands:
+  -
+    init_bare_repo:
+      bare: remotes/task1
+      clone_to: task1
+  -
+    create_add_commit:
+      files:
+        - files/main_v1.py => main.py
+        - files/readme_v1.md => readme.md
+        - files/gitignore_file => .gitignore
+      message: initial commit password generator project
+      author: red
+  -
+    git:
+      command: "git push origin master"

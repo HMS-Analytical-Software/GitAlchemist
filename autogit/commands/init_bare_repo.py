@@ -51,7 +51,6 @@ class CMDInitBareRepo(CMDBaseModel):
 
         os.chdir(cmd.clone_to)
         cmd.log("cd", cmd.clone_to)
-        pdb.set_trace()
         cmd.os_system(f'git remote set-url origin ../{cmd.bare}')
 
         # set git config otherwise subsequent commits will fail
