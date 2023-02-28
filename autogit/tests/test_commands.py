@@ -1,30 +1,26 @@
-import pytest
-import sys
-import pdb
-import time
 import os
-from pathlib import Path
-from autogit.config_model import AutoGitConfig
-from autogit.task import AutoGitTask
+import shutil
 import subprocess
+import time
+from pathlib import Path
+
+import pytest
+
+from autogit.task import AutoGitTask
+
 from .utils import ConfigBuilder
 
-from .. import config_env
-
-print(f"__name__: {__name__}")
-print(f"sys.path: {sys.path}")
 
 my_config_dir = Path("test_configs").resolve()
 my_rel_working_dir = Path("cwd", f"{time.time()}")
 
 
+assert shutil.which("git") is not None, "No git executable found, aborting."
+
+
 @pytest.fixture
 def config_builder(tmp_path):
     return ConfigBuilder(root_dir=tmp_path)
-
-
-def test_git_path(git_path=config_env.git_path):
-    assert os.path.isfile(git_path)
 
 
 def test_init_bare_repo(config_builder: ConfigBuilder):
@@ -63,3 +59,10 @@ def test_git_push(config_builder: ConfigBuilder):
     config = config_builder.create(task_name="git_push", config_dir=my_config_dir, rel_working_dir=my_rel_working_dir)
     task = AutoGitTask.parse(config)
     task.execute()
+    os.chdir(config.working_dir)
+    # bare_dir is remote_dir, see CMDInitBareRepo
+    from_repo = f"remotes/{config.bare_dir.name}"
+    to_repo = "test_clone"
+    os.system(f"git clone {from_repo} {to_repo}")
+    assert os.listdir(config.current_repo) == os.listdir(f"{to_repo}")
+    import pdb; pdb.set_trace()

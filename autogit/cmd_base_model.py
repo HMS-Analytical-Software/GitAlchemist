@@ -1,13 +1,15 @@
 import contextlib
 import os
-from pathlib import Path
 import shutil
 import time
+from collections.abc import Generator
+from pathlib import Path
 from typing import Tuple
+
 from pydantic import BaseModel
+
 from autogit.config_model import AutoGitConfig
 from autogit.exceptions import GitCommandError
-from collections.abc import Generator
 
 
 class CMDBaseModel(BaseModel):
@@ -21,6 +23,10 @@ class CMDBaseModel(BaseModel):
         if exit_status != 0:
             raise GitCommandError(f"One of the `git` commands failed, exit_status is {exit_status}")
         return exit_status
+    
+    def switch_dir_and_log(self, target_dir):
+        self.log("cd", target_dir)
+        os.chdir(target_dir)
 
     def os_cp(self, source: Path, target: Path):
         self.log("cp", source, target)
@@ -29,22 +35,13 @@ class CMDBaseModel(BaseModel):
 
     @contextlib.contextmanager
     def current_repo(self, config: AutoGitConfig) -> Generator[Tuple[Path, Path], None, None]:
-        dir_root = config.root_dir
-        assert (dir_root.exists())
-
-        #configs_dir = dir_root.joinpath("configs")
-        assert (config.config_dir.exists())
-
         configs_task_dir = config.config_dir / config.task
-        assert (configs_task_dir.exists())
+        assert configs_task_dir.exists()
 
         try:
-            #import pdb; pdb.set_trace()
-            repo_dir = config.root_dir / config.working_dir / config.current_repo
-            assert (repo_dir.exists())
-            os.chdir(repo_dir)
+            os.chdir(config.repo_dir)
             self.log(f"cd {config.working_dir}")
-            yield repo_dir, configs_task_dir
+            yield config.repo_dir, configs_task_dir
         finally:
-            self.log(f"cd back to root dir ({dir_root})")
-            os.chdir(dir_root)
+            self.log(f"cd back to root dir ({config.root_dir})")
+            os.chdir(config.root_dir)

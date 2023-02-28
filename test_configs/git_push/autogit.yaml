@@ -1,10 +1,9 @@
-title: git_push
-# Idea of the task: Play a bit with git log and git diff; also use pull to get the latest branch
+title: git_push_test
 commands:
   -
     init_bare_repo:
-      bare: remotes/task1
-      clone_to: task1
+      bare: remotes/git_push_test
+      clone_to: git_push_test
   -
     create_add_commit:
       files:

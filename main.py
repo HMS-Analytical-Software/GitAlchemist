@@ -1,15 +1,13 @@
 # %% 
-from pathlib import Path
-import shutil
-import subprocess
 import os
-import yaml
-import pdb
+import shutil
 import time
-from autogit.task import AutoGitTask
-from autogit.task_model import AutoGitTaskModel
+from pathlib import Path
+
 from autogit.config_model import AutoGitConfig
-from autogit.config_env import git_path
+from autogit.task import AutoGitTask
+
+assert shutil.which("git") is not None, "No git executable found, aborting."
 
 # delete everything in the working dirs if possible (does not work sometimes, 
 # just wait and delete later)

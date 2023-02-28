@@ -1,6 +1,7 @@
-import yaml
-import os
 from pathlib import Path
+
+import yaml
+
 from autogit.config_model import AutoGitConfig
 from autogit.task_model import AutoGitTaskModel
 

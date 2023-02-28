@@ -1,10 +1,10 @@
-title: remove_and_commit
+title: remove_and_commit_test
 # Idea of the task: create new feature branch and do some code changes to work with add commit push --> then merge to master
 commands:
   -
     init_bare_repo:
-      bare: remotes/task0
-      clone_to: task0
+      bare: remotes/remove_and_commit_test
+      clone_to: remove_and_commit_test
   -
     create_add_commit:
       files:

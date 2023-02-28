@@ -1,10 +1,9 @@
-title: Task create_add_commit
-# Idea of the task: Play a bit with git log and git diff; also use pull to get the latest branch
+title: create_add_commit_test
 commands:
   -
     init_bare_repo:
-      bare: remotes/task0
-      clone_to: 'task0'
+      bare: remotes/create_add_commit_test
+      clone_to: 'create_add_commit_test'
   -
     create_add_commit:
       files:

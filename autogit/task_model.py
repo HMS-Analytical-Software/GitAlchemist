@@ -1,6 +1,8 @@
 from typing import Dict, List, Union
+
 from pydantic import BaseModel, Field, validator
 from typing_extensions import Annotated
+
 from autogit.commands.add import CMDAdd
 from autogit.commands.commit import CMDCommit
 from autogit.commands.create_add_commit import CMDCreateAddCommit
@@ -12,7 +14,6 @@ from autogit.commands.merge import CMDMerge
 from autogit.commands.mv import CMDMv
 from autogit.commands.push import CMDPush
 from autogit.commands.remove_and_commit import CMDRemoveAndCommit
-
 
 BaseCommand = Annotated[
     Union[
