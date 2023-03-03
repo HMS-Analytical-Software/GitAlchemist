@@ -1,7 +1,7 @@
 from typing import Literal
+
 from autogit.cmd_base_model import CMDBaseModel
 from autogit.config_model import AutoGitConfig
-from datetime import datetime
 
 
 class CMDCommit(CMDBaseModel):

@@ -1,0 +1,13 @@
+title: create_add_commit_test
+commands:
+  -
+    init_bare_repo:
+      bare: remotes/create_add_commit_test
+      clone_to: 'create_add_commit_test'
+  -
+    create_add_commit:
+      files:
+        - files/hello.py => hello.py
+        - files/README.md => README.md
+      message: hello world
+      author: red

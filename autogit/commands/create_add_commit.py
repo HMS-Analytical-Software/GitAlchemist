@@ -1,6 +1,5 @@
-import shutil
-import time
-from typing import Literal, List
+from typing import List, Literal
+
 from autogit.cmd_base_model import CMDBaseModel
 from autogit.config_model import AutoGitConfig
 
@@ -24,10 +23,10 @@ class CMDCreateAddCommit(CMDBaseModel):
             for entry in cmd.files:
                 splitted = entry.split("=>")
                 if len(splitted) != 2:
-                    raise RuntimeError("each entry in create_add_commit.files must be of form \"val1 => val2\"")
+                    raise RuntimeError("Each entry in create_add_commit.files must be of form \"val1 => val2\"")
 
                 # create
-                source = task.joinpath(splitted[0].strip())
+                source = config.root_dir / task.joinpath(splitted[0].strip())
                 target = repo.joinpath(splitted[1].strip())
 
                 # copy source to target

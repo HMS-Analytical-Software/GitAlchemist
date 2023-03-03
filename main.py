@@ -1,89 +1,40 @@
-from pathlib import Path
-import shutil
-import subprocess
-import streamlit as st
+# %% 
 import os
+import shutil
 import time
-from streamlit_ace import st_ace
-from autogit.task import AutoGitTask
+from pathlib import Path
+
 from autogit.config_model import AutoGitConfig
+from autogit.task import AutoGitTask
 
-st.set_page_config(layout="wide")
-st.title('Autogit')
-
-
-working_dir=f'cwd\\cwd_{time.time()}'
-gitbash = "C:\\Program Files\\Git\\git-bash.exe"
-
+assert shutil.which("git") is not None, "No git executable found, aborting."
 
 # delete everything in the working dirs if possible (does not work sometimes, 
 # just wait and delete later)
 shutil.rmtree('cwd', ignore_errors=True)
 
-# streamlit stuff starts here
-c1, c2 = st.columns((1,4))
+working_dir = os.path.join("cwd", f"{time.time()}")
+config_dir = Path("configs") 
+my_task = "task2"
 
-def run_task(task: str):
-    config = AutoGitConfig(
-        root_dir=os.getcwd(),
-        working_dir=working_dir,
-        task=task,
-        authors={
-            'red': 'Richard Red <richard@pw-compa.ny>',
-            'blue': 'Betty Blue <betty@pw-compa.ny>',
-            'green': 'Garry Green <garry@pw-compa.ny>',
-        }
-    )
-    # execute the task
-    task = AutoGitTask.parse(config)
-    task.execute()
+config = AutoGitConfig(
+    task=my_task,
+    root_dir=os.getcwd(),
+    config_dir=config_dir, 
+    working_dir=working_dir,
+    authors={
+        'red': 'Richard Red <richard@pw-compa.ny>',
+        'blue': 'Betty Blue <betty@pw-compa.ny>',
+        'green': 'Garry Green <garry@pw-compa.ny>',
+    },
+    emails={
+        'red': 'richard@pw-compa.ny',
+        'blue': 'betty@pw-compa.ny',
+        'green': 'garry@pw-compa.ny',
+    }
+)
 
-with c1:
-    st.button("run")
+task = AutoGitTask.parse(config)
+task.execute()
 
-    tasks = []
-    for path in Path(os.getcwd()).joinpath('configs').iterdir():
-        if path.is_dir():
-            tasks.append(path.name)
-
-    task_name = st.selectbox('Tasks', ['Select Task'] + tasks)
-
-    if st.button("run all"):
-        for file in Path(os.getcwd()).joinpath('configs').glob("*"):
-            if file.joinpath("autogit.yaml").exists():
-                run_task(file.name)
-
-
-    with c2: 
-        terminal = st.checkbox('Open Git-Bash Terminal', value=True)
-
-    if task_name != 'Select Task':
-
-        with c2: 
-            configfile = Path(os.getcwd()).joinpath('configs').joinpath(task_name).joinpath("autogit.yaml")
-            value = st_ace(value=configfile.read_text(), language="yaml")
-            configfile.write_text(value)
-        
-        config = AutoGitConfig(
-            root_dir=os.getcwd(),
-            working_dir=working_dir,
-            task=task_name,
-            authors={
-                'red': 'Richard Red <richard@pw-compa.ny>',
-                'blue': 'Betty Blue <betty@pw-compa.ny>',
-                'green': 'Garry Green <garry@pw-compa.ny>',
-            }
-        )
-        # execute the task
-        task = AutoGitTask.parse(config)
-        task.execute()
-
-with c2: 
-    if terminal and task_name != 'Select Task':
-        try:
-            print("open git bash")
-            subprocess.call([gitbash , f"--cd={os.getcwd()}\\{working_dir}\\{config.current_repo}"])
-        except:
-            print("git-bash.exe not found")
-
-    
+print("============== AUTOGIT TASKS FINISHED SUCCESSFULLY ==============")

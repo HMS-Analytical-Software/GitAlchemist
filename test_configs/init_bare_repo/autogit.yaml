@@ -1,0 +1,7 @@
+title: init_bare_repo_test
+# Idea of the task: Play a bit with git log and git diff; also use pull to get the latest branch
+commands:
+  -
+    init_bare_repo:
+      bare: remotes/init_bare_repo_test
+      clone_to: 'init_bare_repo_test'
