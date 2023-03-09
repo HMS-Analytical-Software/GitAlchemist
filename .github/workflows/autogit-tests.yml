@@ -1,0 +1,23 @@
+on:
+  push:
+    branches:
+      - '**'
+
+jobs:
+  autogit-tests:
+    name: Run command tests on Windows
+
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Command Self Test
+        run: |
+          pip install pytest
+          pytest --junitxml=junit.xml
+      
+      - name: Junit Report Windows
+        uses: dorny/test-reporter@v1
+        with:
+          name: AutoGit test report
+          path: "**/junit.xml"
+          reporter: java-junit
