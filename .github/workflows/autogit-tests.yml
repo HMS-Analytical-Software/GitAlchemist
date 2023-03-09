@@ -11,9 +11,12 @@ permissions:
 
 jobs:
   autogit-tests:
-    name: Run command tests on Windows
+    name: Run command tests
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest]
 
-    runs-on: windows-latest
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
       - name: Command Self Test
@@ -21,9 +24,9 @@ jobs:
           pip install -r requirements.txt
           pytest --junitxml=junit.xml
       
-      - name: Junit Report Windows
+      - name: Junit Report ${{ matrix.os }}
         uses: dorny/test-reporter@v1
         with:
-          name: AutoGit test report
+          name: AutoGit test report ${{ matrix.os }}
           path: "**/junit.xml"
           reporter: java-junit
