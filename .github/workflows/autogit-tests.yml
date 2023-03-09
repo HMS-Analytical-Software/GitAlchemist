@@ -3,6 +3,12 @@ on:
     branches:
       - '**'
 
+permissions: 
+  contents: read
+  pages: write
+  id-token: write
+  checks: write
+
 jobs:
   autogit-tests:
     name: Run command tests on Windows
