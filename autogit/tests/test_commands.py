@@ -65,4 +65,3 @@ def test_git_push(config_builder: ConfigBuilder):
     to_repo = "test_clone"
     os.system(f"git clone {from_repo} {to_repo}")
     assert os.listdir(config.current_repo) == os.listdir(f"{to_repo}")
-    import pdb; pdb.set_trace()
