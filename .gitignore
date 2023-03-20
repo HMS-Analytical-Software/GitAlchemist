@@ -16,4 +16,3 @@ configs/old
 autogit_venv
 .vscode/
 test-report.xml
-trying_stuff.py

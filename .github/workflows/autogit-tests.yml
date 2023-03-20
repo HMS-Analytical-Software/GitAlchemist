@@ -20,9 +20,11 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
+      - name: Install requirements
+        run: |
+          pip install -r requirements.text
       - name: Command Self Test
         run: |
-          pip install -r requirements.txt
           pytest --junitxml=junit.xml
       
       - name: Junit Report ${{ matrix.os }}

@@ -44,7 +44,7 @@ def test_create_add_commit(config_builder: ConfigBuilder):
     # check that repository is in the intended state
     assert int(os.popen("git rev-list --count HEAD").read().strip()) == 1
     assert os.popen("git log -1 --pretty=%B").read().strip() == "hello world"
-    assert os.path.exists("hello.py")
+    assert os.path.exists("hello_TESTERR.py")
     assert os.path.exists("README.md")
 
 
