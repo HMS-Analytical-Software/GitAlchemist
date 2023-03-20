@@ -22,7 +22,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Install requirements
         run: |
-          pip install -r requirements.text
+          pip install -r requirements.txt
       - name: Command Self Test
         run: |
           pytest --junitxml=junit.xml
