@@ -1,3 +1,4 @@
+import hashlib
 from pathlib import Path
 
 from autogit.config_model import AutoGitConfig
@@ -28,3 +29,10 @@ class ConfigBuilder:
         )
         return config
 
+
+def hashfile(file):
+    hash = hashlib.sha256()
+    with open(file, 'rb') as f:
+        for chunk in iter(lambda: f.read(4096), b""):
+            hash.update(chunk)
+    return hash.hexdigest()

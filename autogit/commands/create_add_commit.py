@@ -18,7 +18,6 @@ class CMDCreateAddCommit(CMDBaseModel):
 
             if len(cmd.files) == 0:
                 cmd.files = [f"{cmd.source} => {cmd.target}"]
-                #raise RuntimeError("create_add_commit cannot be used with empty files parameter")
             
             for entry in cmd.files:
                 splitted = entry.split("=>")
