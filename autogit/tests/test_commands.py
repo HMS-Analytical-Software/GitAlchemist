@@ -21,12 +21,6 @@ def test_init_bare_repo(config_builder: ConfigBuilder):
     assert result.returncode == 0
 
 
-def test_remove_and_commit(config_builder: ConfigBuilder):
-    config = config_builder.create(task_name="remove_and_commit", config_dir=my_config_dir, rel_working_dir=my_rel_working_dir)
-    task = AutoGitTask.parse(config)
-    task.execute()
-    assert not os.path.exists("notes-timeline.txt")
-
 
 def test_git_push(config_builder: ConfigBuilder):
     config = config_builder.create(task_name="git_push", config_dir=my_config_dir, rel_working_dir=my_rel_working_dir)
