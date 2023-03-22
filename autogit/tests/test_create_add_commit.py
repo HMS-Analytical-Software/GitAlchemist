@@ -9,7 +9,7 @@ from .conftest import my_config_dir, my_rel_working_dir
 def test_create_add_commit(config_builder: ConfigBuilder):
     config = config_builder.create(task_name="create_add_commit", config_dir=my_config_dir, rel_working_dir=my_rel_working_dir)
     task = AutoGitTask.parse(config)
-    task.execute()
+    task.execute_remaining_steps()
     os.chdir(config.repo_dir)
     # check that repository is in the intended state
     assert int(os.popen("git rev-list --count HEAD").read().strip()) == 1
@@ -22,7 +22,7 @@ def test_create_add_commit_file_contents(config_builder: ConfigBuilder):
     config = config_builder.create(task_name="create_add_commit_track_file_contents", \
                                    config_dir=my_config_dir, rel_working_dir=my_rel_working_dir)
     task = AutoGitTask.parse(config)
-    task.execute()
+    task.execute_remaining_steps()
     os.chdir(config.repo_dir)
     # check that repository is in the intended state: 3 commits should have been run
     assert int(os.popen("git rev-list --count HEAD").read().strip()) == 3

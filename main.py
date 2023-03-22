@@ -35,6 +35,6 @@ config = AutoGitConfig(
 )
 
 task = AutoGitTask.parse(config)
-task.execute()
+task.execute_remaining_steps()
 
 print("============== AUTOGIT TASKS FINISHED SUCCESSFULLY ==============")

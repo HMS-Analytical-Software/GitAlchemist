@@ -18,7 +18,7 @@ class CMDExecuteAutogitTasks(CMDBaseModel):
             return
 
         for task in cmd.tasks:
-            print(task)
+            print(f"(This is an Autogit task: {task})")
             cfg = config.dict()
             cfg["task"] = task
             new_config = AutoGitConfig(**cfg)
@@ -26,4 +26,4 @@ class CMDExecuteAutogitTasks(CMDBaseModel):
             # we avoid circular import when we import it at runtime
             from autogit.task import AutoGitTask
             new_task = AutoGitTask.parse(new_config)
-            new_task.execute(skip_commands=["init_bare_repo"])
+            new_task.execute_remaining_steps(skip_commands=["init_bare_repo"])

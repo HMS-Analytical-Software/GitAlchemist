@@ -11,7 +11,7 @@ from .conftest import my_config_dir, my_rel_working_dir
 def test_init_bare_repo(config_builder: ConfigBuilder):
     config = config_builder.create(task_name="init_bare_repo", config_dir=my_config_dir, rel_working_dir=my_rel_working_dir)
     task = AutoGitTask.parse(config)
-    task.execute()
+    task.execute_remaining_steps()
     os.chdir(config.bare_dir)
     # check that bare repository is rare and that it has been cloned successfully
     assert os.system("git rev-parse --is-bare-repository") == 0
@@ -25,7 +25,7 @@ def test_init_bare_repo(config_builder: ConfigBuilder):
 def test_git_push(config_builder: ConfigBuilder):
     config = config_builder.create(task_name="git_push", config_dir=my_config_dir, rel_working_dir=my_rel_working_dir)
     task = AutoGitTask.parse(config)
-    task.execute()
+    task.execute_remaining_steps()
     os.chdir(config.working_dir)
     # bare_dir is remote_dir, see CMDInitBareRepo
     from_repo = f"remotes/{config.bare_dir.name}"
