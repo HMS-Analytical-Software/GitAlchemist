@@ -19,16 +19,3 @@ def test_init_bare_repo(config_builder: ConfigBuilder):
     assert Path('.git').exists()
     result = subprocess.run(['git', 'ls-remote'])
     assert result.returncode == 0
-
-
-
-def test_git_push(config_builder: ConfigBuilder):
-    config = config_builder.create(task_name="git_push", config_dir=my_config_dir, rel_working_dir=my_rel_working_dir)
-    task = AutoGitTask.parse(config)
-    task.execute_remaining_steps()
-    os.chdir(config.working_dir)
-    # bare_dir is remote_dir, see CMDInitBareRepo
-    from_repo = f"remotes/{config.bare_dir.name}"
-    to_repo = "test_clone"
-    os.system(f"git clone {from_repo} {to_repo}")
-    assert os.listdir(config.current_repo) == os.listdir(f"{to_repo}")

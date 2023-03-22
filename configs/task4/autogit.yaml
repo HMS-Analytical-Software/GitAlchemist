@@ -13,9 +13,6 @@ commands:
         - task3
   -
     git:
-      command: "git checkout -b master"
-  -
-    git:
       command: "git pull"
   -
     mv:
