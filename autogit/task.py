@@ -12,7 +12,7 @@ class AutoGitTask():
         self.model = model
         self.config = config
         self.next_step_ind = 0
-    
+
     def execute_next_step(self, skip_commands=[]):
         if self.next_step_ind == 0:
             print(f"\n{'='*25} STARTING EXECUTION OF {self.model.title.upper()} {'='*25}")
@@ -32,6 +32,10 @@ class AutoGitTask():
         print("-"*70)
         base_command.__class__.execute(base_command, self.config)
     
+    def execute_next_n_steps(self, n):
+        for _ in range(n):
+            self.execute_next_step()
+
     def execute_remaining_steps(self, skip_commands=[]):
         while self.next_step_ind < len(self.model.commands):
             self.execute_next_step(skip_commands)

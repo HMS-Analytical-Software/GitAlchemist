@@ -16,5 +16,11 @@ commands:
     remove_and_commit:
       files: 
       - notes-timeline.txt
-      message: cleanup timeline notes
+      message: clean up timeline notes
+      author: red
+  -
+    remove_and_commit:
+      files: 
+      - notes-timeline_nonexistent.txt
+      message: clean up timeline notes that don't exist (this step should fail)
       author: red
