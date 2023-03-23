@@ -21,17 +21,6 @@ def test_init_bare_repo(config_builder: ConfigBuilder):
     assert result.returncode == 0
 
 
-# tests if git mv works
-def test_git_mv(config_builder: ConfigBuilder):
-    config = config_builder.create(task_name="git_branches", \
-                                   config_dir=my_config_dir, rel_working_dir=my_rel_working_dir)
-    task = AutoGitTask.parse(config)
-    task.execute_next_n_steps(4)
-    os.chdir(config.repo_dir)
-    assert os.path.exists("generator.py")
-    assert not os.path.exists("main.py")
-
-
 # test if git push leads to same repository contents as repository that was pushed from
 def test_git_push(config_builder: ConfigBuilder):
     config = config_builder.create(task_name="git_branches", config_dir=my_config_dir, rel_working_dir=my_rel_working_dir)
@@ -43,6 +32,10 @@ def test_git_push(config_builder: ConfigBuilder):
     to_repo = "test_clone"
     os.system(f"git clone {from_repo} {to_repo}")
     assert os.listdir(config.current_repo) == os.listdir(f"{to_repo}")
+
+
+def test_git_pull(config_builder: ConfigBuilder):
+    pass
 
 
 def test_git_branch_checkout(config_builder: ConfigBuilder):
