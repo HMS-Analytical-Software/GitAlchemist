@@ -15,7 +15,7 @@ shutil.rmtree('cwd', ignore_errors=True)
 
 working_dir = os.path.join("cwd", f"{time.time()}")
 config_dir = Path("configs") 
-my_task = "task4"
+my_task = "task_fail"
 
 config = AutoGitConfig(
     task=my_task,

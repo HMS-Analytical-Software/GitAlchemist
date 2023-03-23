@@ -16,7 +16,10 @@ class AutoGitTask():
     def execute_next_step(self, skip_commands=[]):
         if self.next_step_ind == 0:
             print(f"\n{'='*25} STARTING EXECUTION OF {self.model.title.upper()} {'='*25}")
-        list_entry = self.model.commands[self.next_step_ind]
+        try:
+            list_entry = self.model.commands[self.next_step_ind]
+        except IndexError:
+            return
         self.next_step_ind += 1
         assert len(list_entry) == 1
         cmd_name, base_command = list(list_entry.items())[0]
@@ -31,6 +34,7 @@ class AutoGitTask():
         print(f"\nExecuting step {self.next_step_ind}/{len(self.model.commands)} of {self.model.title} | {base_command.__class__.__name__} | {str(cmd_params)}")
         print("-"*70)
         base_command.__class__.execute(base_command, self.config)
+        self.last_command = base_command
     
     def execute_next_n_steps(self, n):
         for _ in range(n):
