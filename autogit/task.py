@@ -1,4 +1,5 @@
 from pathlib import Path
+from typing import List
 
 import yaml
 
@@ -13,7 +14,7 @@ class AutoGitTask():
         self.config = config
         self.next_step_ind = 0
 
-    def execute_next_step(self, skip_commands=[]):
+    def execute_next_step(self, skip_commands: List[str] = []):
         if self.next_step_ind == 0:
             print(f"\n{'='*25} STARTING EXECUTION OF {self.model.title.upper()} {'='*25}")
         try:
@@ -21,7 +22,6 @@ class AutoGitTask():
         except IndexError:
             return
         self.next_step_ind += 1
-        assert len(list_entry) == 1
         cmd_name, base_command = list(list_entry.items())[0]
 
         if cmd_name in skip_commands:
@@ -36,11 +36,11 @@ class AutoGitTask():
         base_command.__class__.execute(base_command, self.config)
         self.last_command = base_command
     
-    def execute_next_n_steps(self, n):
+    def execute_next_n_steps(self, n: int):
         for _ in range(n):
             self.execute_next_step()
 
-    def execute_remaining_steps(self, skip_commands=[]):
+    def execute_remaining_steps(self, skip_commands: List[str] = []):
         while self.next_step_ind < len(self.model.commands):
             self.execute_next_step(skip_commands)
 

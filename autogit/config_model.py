@@ -37,6 +37,8 @@ class AutoGitConfig(BaseModel):
 
     def __init__(__pydantic_self__, **data: Any) -> None:
         super().__init__(**data)
-        assert __pydantic_self__.root_dir.exists()
-        assert __pydantic_self__.config_dir.exists()
+        if not __pydantic_self__.root_dir.exists():
+            raise FileNotFoundError(f"Root directory '{__pydantic_self__.__root_dir}' does not exist.")
+        if not __pydantic_self__.config_dir.exists():
+            raise FileNotFoundError(f"Config directory '{__pydantic_self__.__config_dir}' does not exist.")
         __pydantic_self__.working_dir = __pydantic_self__.root_dir / __pydantic_self__.working_dir

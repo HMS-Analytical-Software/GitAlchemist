@@ -41,7 +41,8 @@ class CMDBaseModel(BaseModel):
     @contextlib.contextmanager
     def current_repo(self, config: AutoGitConfig) -> Generator[Tuple[Path, Path], None, None]:
         configs_task_dir = config.config_dir / config.task
-        assert configs_task_dir.exists()
+        if not os.path.exists(configs_task_dir):
+            raise FileNotFoundError(f"Task directory '{configs_task_dir}' does not exist.")
 
         try:
             os.chdir(config.repo_dir)
