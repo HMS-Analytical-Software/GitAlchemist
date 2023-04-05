@@ -53,10 +53,7 @@ if __name__ == "__main__":
     group.add_argument("--run-all", action="store_true", help="Run all tasks in the configuration directory.")
     args = parser.parse_args()
 
-    if args.run_all:
-        tasks = []
-    else:
-        tasks = [args.task]
+    tasks = [args.task] if not args.run_all else []
     
     main(config_dir = args.config_dir, tasks = tasks, run_all = args.run_all)
     print("============== AUTOGIT TASKS FINISHED SUCCESSFULLY ==============")
