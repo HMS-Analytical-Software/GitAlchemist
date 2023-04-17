@@ -3,6 +3,7 @@ from typing import List, Literal
 from autogit.cmd_base_model import CMDBaseModel
 from autogit.config_model import AutoGitConfig
 
+import os.path
 
 class CMDCreateAddCommit(CMDBaseModel):
     cmd_type: Literal['create_add_commit']
@@ -26,6 +27,8 @@ class CMDCreateAddCommit(CMDBaseModel):
 
                 # create
                 source = config.root_dir / task.joinpath(splitted[0].strip())
+                if not os.path.isfile(source):
+                    raise FileNotFoundError(f"Source file {source} in 'create_add_commit' not found. Please check your autogit config file.")
                 target = repo.joinpath(splitted[1].strip())
 
                 # copy source to target
