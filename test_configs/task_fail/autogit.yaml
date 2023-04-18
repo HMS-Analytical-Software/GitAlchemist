@@ -1,5 +1,4 @@
 title: remove_and_commit_test
-# Idea of the task: create new feature branch and do some code changes to work with add commit push --> then merge to master
 commands:
   -
     init_bare_repo:
@@ -11,12 +10,6 @@ commands:
         - files/hello.py => hello.py
         - files/notes-timeline.txt => notes-timeline.txt
       message: hello world
-      author: red
-  -
-    remove_and_commit:
-      files: 
-      - notes-timeline.txt
-      message: clean up timeline notes
       author: red
   -
     remove_and_commit:

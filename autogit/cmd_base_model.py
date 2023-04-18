@@ -2,6 +2,7 @@ import contextlib
 import os
 import shutil
 import time
+import subprocess
 from collections.abc import Generator
 from pathlib import Path
 from typing import Tuple
@@ -19,10 +20,14 @@ class CMDBaseModel(BaseModel):
 
     def os_system(self, command: str) -> int:
         self.log(command)
-        exit_status = os.system(command)
-        if exit_status != 0:
-            raise GitCommandError(f"One of the `git` commands failed, exit_status is {exit_status}")
-        return exit_status
+        result = subprocess.run(command, shell=True, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+        if result.returncode != 0:
+            raise GitCommandError(f"\nONE OF THE `git` COMMANDS FAILED.\n"
+                                  f"COMMAND: '{command}'\n"
+                                  f"EXIT_STATUS: {result.returncode}\n"
+                                  f"STDERR: {result.stderr.decode('utf-8')}\n"
+                                  f"STDOUT: {result.stdout.decode('utf-8')}")
+        return result.returncode
     
     def switch_dir_and_log(self, target_dir):
         self.log("cd", target_dir)
@@ -36,7 +41,8 @@ class CMDBaseModel(BaseModel):
     @contextlib.contextmanager
     def current_repo(self, config: AutoGitConfig) -> Generator[Tuple[Path, Path], None, None]:
         configs_task_dir = config.config_dir / config.task
-        assert configs_task_dir.exists()
+        if not os.path.exists(configs_task_dir):
+            raise FileNotFoundError(f"Task directory '{configs_task_dir}' does not exist.")
 
         try:
             os.chdir(config.repo_dir)

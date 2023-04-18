@@ -18,7 +18,7 @@ commands:
       command: "git push origin --delete feature/generator_with_random_numbers_and_letters_2"
   -
     git:
-        command: "git checkout -b feature/generator_with_random_numbers_and_letters_1"
+        command: "git checkout -b feature/generator_with_random_numbers_and_letters_5"
   -
     git:
       command: "git rebase master"
@@ -40,13 +40,10 @@ commands:
       command: "git checkout master"
   -
     git:
-      command: "git merge feature/generator_with_random_numbers_and_letters_1"
+      command: "git merge feature/generator_with_random_numbers_and_letters_5"
   -
     git:
-      command: "git branch -D feature/generator_with_random_numbers_and_letters_1"
-  -
-    git:
-      command: "git push origin --delete feature/generator_with_random_numbers_and_letters_1"
+      command: "git branch -D feature/generator_with_random_numbers_and_letters_5"
   -
     git:
       command: "git checkout -b feature/add_special_characters_to_password_characters"
@@ -69,7 +66,7 @@ commands:
     merge:
       source: feature/adjustable_password_characters
       target: master
-      delete_source: True
+      delete_source: False
   -
     git:
       command: "git push -u origin master"

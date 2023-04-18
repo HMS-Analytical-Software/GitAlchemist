@@ -1,4 +1,5 @@
 from pathlib import Path
+from typing import List
 
 import yaml
 
@@ -11,24 +12,37 @@ class AutoGitTask():
     def __init__(self, model: AutoGitTaskModel, config: AutoGitConfig):
         self.model = model
         self.config = config
+        self.next_step_ind = 0
 
-    def execute(self, skip_commands=[]):
-        print("run task", self.model.title)
-        cnt = 1
-        for list_entry in self.model.commands:
-            for cmd_name, base_command in list_entry.items():
-                if cmd_name in skip_commands:
-                    base_command.log("skip (is in skip_commands)")
-                    continue
-                cmd_params = base_command.dict().copy()
-                # we don't need this in the log below
-                del cmd_params["cmd_type"]
-                print("-"*30)
-                print(
-                    f"{self.model.title} step {cnt}/{len(self.model.commands)} | {base_command.__class__.__name__} | {str(cmd_params)}")
-                print("-"*30)
-                base_command.__class__.execute(base_command, self.config)
-                cnt += 1
+    def execute_next_step(self, skip_commands: List[str] = []):
+        if self.next_step_ind == 0:
+            print(f"\n{'='*25} STARTING EXECUTION OF {self.model.title.upper()} {'='*25}")
+        try:
+            list_entry = self.model.commands[self.next_step_ind]
+        except IndexError:
+            return
+        self.next_step_ind += 1
+        cmd_name, base_command = list(list_entry.items())[0]
+
+        if cmd_name in skip_commands:
+            print(f"Skipping step {self.next_step_ind}/{len(self.model.commands)} of {self.model.title} (is in skip_commands)")
+            return
+        
+        cmd_params = base_command.dict().copy()
+        # we don't need this in the log below
+        del cmd_params["cmd_type"]
+        print(f"\nExecuting step {self.next_step_ind}/{len(self.model.commands)} of {self.model.title} | {base_command.__class__.__name__} | {str(cmd_params)}")
+        print("-"*70)
+        base_command.__class__.execute(base_command, self.config)
+        self.last_command = base_command
+    
+    def execute_next_n_steps(self, n: int):
+        for _ in range(n):
+            self.execute_next_step()
+
+    def execute_remaining_steps(self, skip_commands: List[str] = []):
+        while self.next_step_ind < len(self.model.commands):
+            self.execute_next_step(skip_commands)
 
     @staticmethod
     def parse(config: AutoGitConfig):
