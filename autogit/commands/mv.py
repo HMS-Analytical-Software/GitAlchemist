@@ -1,9 +1,16 @@
 from typing import Literal
+
 from autogit.cmd_base_model import CMDBaseModel
 from autogit.config_model import AutoGitConfig
 
 
 class CMDMv(CMDBaseModel):
+    """
+    Execute the `git mv source target` command in the git working directory.
+
+    Raises:
+        AutogitError: raised from cmd.os_system when the git command can not be executed
+    """
     cmd_type: Literal['mv']
     source: str
     target: str

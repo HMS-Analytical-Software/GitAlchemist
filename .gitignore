@@ -16,3 +16,4 @@ configs/old
 autogit_venv
 .vscode/
 test-report.xml
+autogit.log

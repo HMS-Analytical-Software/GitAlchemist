@@ -18,7 +18,6 @@ class CMDExecuteAutogitTasks(CMDBaseModel):
             return
 
         for task in cmd.tasks:
-            print(f"*** This is an Autogit task: {task} ***")
             cfg = config.dict()
             cfg["task"] = task
             new_config = AutoGitConfig(**cfg)

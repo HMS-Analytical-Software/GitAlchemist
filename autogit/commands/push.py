@@ -5,6 +5,12 @@ from autogit.config_model import AutoGitConfig
 
 
 class CMDPush(CMDBaseModel):
+    """
+    Execute the `git push origin master` command in the git working directory.
+
+    Raises:
+        AutogitError: raised from cmd.os_system when the git command can not be executed
+    """
     cmd_type: Literal['push']
     master: bool
 

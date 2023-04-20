@@ -1,3 +1,4 @@
+import logging
 from pathlib import Path
 from typing import List
 
@@ -5,6 +6,8 @@ import yaml
 
 from autogit.config_model import AutoGitConfig
 from autogit.task_model import AutoGitTaskModel
+
+logger = logging.getLogger(__name__)
 
 
 class AutoGitTask():
@@ -17,7 +20,9 @@ class AutoGitTask():
 
     def execute_next_step(self, skip_commands: List[str] = []):
         if self.next_step_ind == 0:
-            print(f"\n{'='*25} STARTING EXECUTION OF {self.model.title.upper()} {'='*25}")
+            logger.debug("")
+            logger.debug(f"{'='*25} STARTING EXECUTION OF {self.model.title.upper()} {'='*25}")
+            logger.debug("")
         try:
             list_entry = self.model.commands[self.next_step_ind]
         except IndexError:
@@ -26,16 +31,24 @@ class AutoGitTask():
         cmd_name, base_command = list(list_entry.items())[0]
 
         if cmd_name in skip_commands:
-            print(
-                f"Skipping step {self.next_step_ind}/{len(self.model.commands)} of {self.model.title} (is in skip_commands)")
+            logger.debug(f"Skipping step {self.next_step_ind}/{len(self.model.commands)}"
+                         + f" of {self.model.title} (is in skip_commands)")
             return
 
-        cmd_params = base_command.dict().copy()
-        # we don't need this in the log below
+        # current step as info
+        logger.info(f"Executing step {self.next_step_ind}/{len(self.model.commands)}"
+                    + f" of {self.model.title} | {base_command.__class__.__name__}")
+
+        # add parameters for this step as debug
+        logger.debug("-"*70)
+        cmd_params = base_command.dict().copy()  # we don't need cmd_type in the log
         del cmd_params["cmd_type"]
-        print(
-            f"\nExecuting step {self.next_step_ind}/{len(self.model.commands)} of {self.model.title} | {base_command.__class__.__name__} | {str(cmd_params)}")
-        print("-"*70)
+        for k, v in cmd_params.items():
+            _v = v
+            if isinstance(v, list):
+                _v = ", ".join([str(el) for el in v])
+            logger.debug(f'  {k:<15}: {_v}')
+        logger.debug("-"*70)
         base_command.__class__.execute(base_command, self.config)
         self.last_command = base_command
 

@@ -1,6 +1,6 @@
 import pytest
 
-from autogit import AutogitError, AutoGitTask
+from autogit import AutoGitTask
 from autogit.commands import (CMDCreateAddCommit, CMDInitBareRepo,
                               CMDRemoveAndCommit)
 
@@ -41,5 +41,5 @@ def test_remove_and_commit(config_builder: ConfigBuilder):
     assert file_not_to_remove.exists()  # should still exist
 
     # the next step should fail because the file does not exist
-    with pytest.raises(AutogitError):
+    with pytest.raises(FileNotFoundError):
         task.execute_next_step()
