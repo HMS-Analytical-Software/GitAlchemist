@@ -46,7 +46,8 @@ Let's see how such an `autogit.yaml` file looks like:
 title: Example task created with Autogit
 commands:
   - init_bare_repo:
-      name: example_repo
+      bare: remotes/task_from_readme
+      clone_to: task_from_readme
   - create_add_commit:
       files:
         - files/readme.md => readme.md
@@ -67,7 +68,7 @@ commands:
       command: "git push origin master"
 ```
 
-- The first command creates a bare git repository called example_repo
+- The first command creates a bare git repository called `task_from_readme`
 - The second command takes files stored in
   files/\* (left side of the => operator) and puts it to the working
   directory under the name that is specified in the right side of the => operator.
@@ -79,6 +80,21 @@ commands:
 
 Author aliases are used to define who made the commit.
 Timestamps are not yet supported but you could integrate them easily if you need this feature.
+
+You can run this example with `python .\main.py --task task_from_readme` which should result
+in some output like this (see Getting Started section below for further details):
+
+![Run Autogit](docs/readme_figure.png)
+
+You can clone from the created remote repository when you move into the folder with the remotes directory and use `git clone remotes/task_from_readme some_name`. We used mytask here as the name for the cloned repo:
+
+![Show Result](docs/readme_figure2.png)
+
+Usage of the cloned repo is then just plain git:
+
+![Use Cloned Repo](docs/readme_figure3.png)
+
+Note that the git history can be easily mapped to the `autogit.yaml` file from above and that the commit messages and authors are set accordingly.
 
 ## Getting Started with Autogit
 
@@ -99,7 +115,7 @@ In addition to the bare repositories, Autogit will also create a working directo
 
 ## Getting Started with the created Remote Repositories
 
-1. Go to the appropriate `cwd/_timestamp_/` folder; the last run will have the highest timestamp
+1. Go to the appropriate `cwd/_timestamp_/` folder as it is shown in the example section above; the last run will have the highest timestamp
 2. Use ``git clone remotes/task_name my_task_name_repo` to clone a repo
 3. Alternatively: skip step 2 and use the already created task repos
 
