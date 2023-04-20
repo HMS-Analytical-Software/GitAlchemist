@@ -38,7 +38,7 @@ We learned that this kind of "hands-on experience" can be helpful, especially fo
 Let's assume for this example we want to explore `git status` and `git log`. So we want a history of changes in our repo that the workshop participants can inspect. To achieve this, we do the following:
 
 1. We create the files that we want the participants to see in the repo; If the file should be changed, we prepare different versions for it, e.g., main_v1.py with the initial code and main_v2.py with code that is added later on in the history.
-2. We create a `autogit.yaml` file to define a series of actions / git commands that were executed in the history of this repository. This is where the Autogit framework comes in: we provide wrappers for frequently required activities in this context such as adding files or committing changes via different fake users.
+2. We create an `autogit.yaml` file to define a series of actions / git commands that were executed in the history of this repository. This is where the Autogit framework comes in: we provide wrappers for frequently required activities in this context such as adding files or committing changes via different fake users.
 
 Let's see how such an `autogit.yaml` file looks like:
 
@@ -100,17 +100,17 @@ In addition to the bare repositories, Autogit will also create a working directo
 ## Getting Started with the created Remote Repositories
 
 1. Go to the appropriate `cwd/_timestamp_/` folder; the last run will have the highest timestamp
-   2a. Use ``git clone remotes/task_name my_task_name_repo` to clone a repo
-   2b. Alternatively: use the already created task repos
+2. Use ``git clone remotes/task_name my_task_name_repo` to clone a repo
+3. Alternatively: skip step 2 and use the already created task repos
 
-Please be aware that step 2a only works when the content was pushed! If you do not specify a
+Please be aware that step 2 only works when the content was pushed! If you do not specify a
 push command in the `autogit.yaml` file the content will never be added to the remote repository!
 
 ## Tests
 
-Unit tests for the wrapper functions can be found in autogit/tests. Use `pytest .` to run the tests.
+Unit tests for the wrapper functions can be found in autogit/tests. Use `pytest .` to run tests.
 
 ## Credits
 
-- Original idea and implementation: Robert Bauer and Manuel Steinhaus from HMS Analytical Software
+- Original idea and implementation: Robert Bauer and Manuel Steinhorst from HMS Analytical Software
 - Code refactoring and unit tests: Florian Huber from HMS Analytical Software
