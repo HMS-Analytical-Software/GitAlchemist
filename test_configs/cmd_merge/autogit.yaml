@@ -1,0 +1,28 @@
+title: test_cmd_merge
+commands:
+  - init_bare_repo:
+      bare: remotes/git_push_test
+      clone_to: git_push_test
+  - create_add_commit:
+      files:
+        - files/readme_v1.md => readme.md
+      message: readme
+      author: red
+  - push:
+      master: true
+  - git:
+      command: "git checkout -b feature/start_project"
+  - create_add_commit:
+      files:
+        - files/main_v1.py => main.py
+        - files/gitignore_file => .gitignore
+      message: initial commit password generator project
+      author: red
+  - git:
+      command: "git push -u origin feature/start_project"
+  - merge:
+      source: feature/start_project
+      target: master
+      delete_source: false
+  - push:
+      master: true
