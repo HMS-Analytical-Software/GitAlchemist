@@ -10,7 +10,7 @@ from typing import Tuple
 from pydantic import BaseModel
 
 from autogit.config_model import AutoGitConfig
-from autogit.exceptions import GitCommandError
+from autogit.exceptions import AutogitError
 
 
 class CMDBaseModel(BaseModel):
@@ -22,13 +22,13 @@ class CMDBaseModel(BaseModel):
         self.log(command)
         result = subprocess.run(command, shell=True, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
         if result.returncode != 0:
-            raise GitCommandError(f"\nONE OF THE `git` COMMANDS FAILED.\n"
-                                  f"COMMAND: '{command}'\n"
-                                  f"EXIT_STATUS: {result.returncode}\n"
-                                  f"STDERR: {result.stderr.decode('utf-8')}\n"
-                                  f"STDOUT: {result.stdout.decode('utf-8')}")
+            raise AutogitError(f"\nONE OF THE `git` COMMANDS FAILED.\n"
+                               f"COMMAND: '{command}'\n"
+                               f"EXIT_STATUS: {result.returncode}\n"
+                               f"STDERR: {result.stderr.decode('utf-8')}\n"
+                               f"STDOUT: {result.stdout.decode('utf-8')}")
         return result.returncode
-    
+
     def switch_dir_and_log(self, target_dir):
         self.log("cd", target_dir)
         os.chdir(target_dir)

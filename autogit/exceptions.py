@@ -1,2 +1,2 @@
-class GitCommandError(Exception):
+class AutogitError(Exception):
     pass

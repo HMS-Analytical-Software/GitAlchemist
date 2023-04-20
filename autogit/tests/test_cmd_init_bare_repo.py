@@ -10,7 +10,7 @@ from .utils import ConfigBuilder
 
 def test_init_bare_repo(config_builder: ConfigBuilder):
     """Test the init_bare_repo command that is used to boostrap an empty remote repository"""
-    config = config_builder.create(task_name="init_bare_repo",
+    config = config_builder.create(task_name="cmd_init_bare_repo",
                                    config_dir=my_config_dir,
                                    rel_working_dir=my_rel_working_dir)
     task = AutoGitTask.parse(config)

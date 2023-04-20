@@ -2,7 +2,7 @@ from typing import List, Literal
 
 from autogit.cmd_base_model import CMDBaseModel
 from autogit.config_model import AutoGitConfig
-from autogit.exceptions import GitCommandError
+from autogit.exceptions import AutogitError
 
 
 class CMDRemoveAndCommit(CMDBaseModel):
@@ -17,11 +17,11 @@ class CMDRemoveAndCommit(CMDBaseModel):
 
             if len(cmd.files) == 0:
                 raise RuntimeError("remove_and_commit cannot be used with empty files parameter")
-            
+
             for entry in cmd.files:
                 try:
                     cmd.os_system(f"git rm {entry}")
-                except GitCommandError as e:
+                except AutogitError as e:
                     print(cmd)
                     raise e
 
@@ -30,5 +30,5 @@ class CMDRemoveAndCommit(CMDBaseModel):
             c = f"git commit --date=\"format:relative:5.hours.ago\" -m \"{cmd.message}\" --author=\"{author}\""
             try:
                 cmd.os_system(c)
-            except GitCommandError as e:
+            except AutogitError as e:
                 raise e

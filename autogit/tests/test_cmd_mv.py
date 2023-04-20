@@ -9,12 +9,12 @@ from .utils import ConfigBuilder
 
 def test_git_mv(config_builder: ConfigBuilder):
     """Test the git mv command which can be used, for example, to rename files"""
-    config = config_builder.create(task_name="git_branches",
+    config = config_builder.create(task_name="cmd_mv",
                                    config_dir=my_config_dir,
                                    rel_working_dir=my_rel_working_dir)
     task = AutoGitTask.parse(config)
 
-    # for this test we execute the first 3 steps of the autogit yaml file in test_configs/git_branches;
+    # for this test we execute the autogit yaml file in test_configs/cmd_mv;
     # the second command will add and commit several files, one of which is a main.py file; in step
     # three this file should be renamed to generator.py
     assert (type(task.model.commands[0].get("init_bare_repo")) is CMDInitBareRepo)

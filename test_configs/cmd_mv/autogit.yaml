@@ -1,4 +1,4 @@
-title: test_cmd_push
+title: test_cmd_mv
 commands:
   - init_bare_repo:
       bare: remotes/git_push_test
@@ -10,5 +10,6 @@ commands:
         - files/gitignore_file => .gitignore
       message: initial commit password generator project
       author: red
-  - push:
-      master: true
+  - mv:
+      source: main.py
+      target: generator.py

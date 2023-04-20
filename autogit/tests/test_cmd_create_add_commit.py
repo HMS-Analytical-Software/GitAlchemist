@@ -7,27 +7,12 @@ from .conftest import my_config_dir, my_rel_working_dir
 
 
 def test_create_add_commit(config_builder: ConfigBuilder):
-    """
-    Test the create_add_commit command which adds a new file to the index
-    and directly commits it. It is common that the same file is overwritten multiple
-    times using multiple create_add_commit commands with different
-    source files but same target file. In the example autogit.yaml file
-    used for this test (test_configs/create_add_commit) the project_plan.md file
-    is updated three times with different contents and commit messages.
-
-      step1: init_bare_repo
-      step2: create_add_commit (files/project_plan_v1.md => project_plan.md)
-      step3: create_add_commit (files/project_plan_v2.md => project_plan.md)
-      step4: create_add_commit (files/project_plan_v3.md => project_plan.md)
-      step5: git push
-
-    Note that step5 is not relevant here (i.e., not used) but included in the
-    yaml file to give a better understanding of the structure/logic in the file.
-    """
-    config = config_builder.create(
-        task_name="create_add_commit",
-        config_dir=my_config_dir,
-        rel_working_dir=my_rel_working_dir)
+    """Test the create_add_commit command which adds a new file to the index
+    and directly commits it. This test uses the same autogit.yaml file as the
+    test below (see comments there for further details)."""
+    config = config_builder.create(task_name="cmd_create_add_commit",
+                                   config_dir=my_config_dir,
+                                   rel_working_dir=my_rel_working_dir)
     task = AutoGitTask.parse(config)
 
     # execute the first two steps
@@ -43,8 +28,24 @@ def test_create_add_commit(config_builder: ConfigBuilder):
     assert os.path.exists("project_plan.md")
 
 
-def test_create_add_commit_file_contents(config_builder: ConfigBuilder):
-    config = config_builder.create(task_name="create_add_commit",
+def test_create_add_commit_multiple_uses(config_builder: ConfigBuilder):
+    """
+    It is common that the same file is overwritten multiple
+    times using multiple create_add_commit commands with different
+    source files but same target file. In the example autogit.yaml file
+    used for this test (test_configs/create_add_commit) the project_plan.md file
+    is updated three times with different contents and commit messages.
+
+      step1: init_bare_repo
+      step2: create_add_commit (files/project_plan_v1.md => project_plan.md)
+      step3: create_add_commit (files/project_plan_v2.md => project_plan.md)
+      step4: create_add_commit (files/project_plan_v3.md => project_plan.md)
+      step5: git push
+
+    Note that step5 is not relevant here (i.e., not used) but included in the
+    yaml file to give a better understanding of the structure/logic in the file.
+    """
+    config = config_builder.create(task_name="cmd_create_add_commit",
                                    config_dir=my_config_dir,
                                    rel_working_dir=my_rel_working_dir)
     task = AutoGitTask.parse(config)

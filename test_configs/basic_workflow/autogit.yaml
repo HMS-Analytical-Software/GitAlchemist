@@ -1,17 +1,13 @@
-title: basic_workflow
+title: test_basic_workflow
 commands:
-  -
-    init_bare_repo:
+  - init_bare_repo:
       bare: remotes/create_add_commit
       clone_to: basic_workflow
-  -
-    create_file:
+  - create_file:
       source: files/project_plan_v1.md
       target: project_plan.md
-  -
-    add:
+  - add:
       files: [project_plan.md]
-  -
-    commit:
+  - commit:
       message: Added first file
       author: red

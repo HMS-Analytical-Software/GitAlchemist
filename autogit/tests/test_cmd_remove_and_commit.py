@@ -10,12 +10,12 @@ from .utils import ConfigBuilder
 
 def test_remove_and_commit(config_builder: ConfigBuilder):
     """Test the remove_and_commit command which is used to remove files from the index"""
-    config = config_builder.create(task_name="remove_and_commit",
+    config = config_builder.create(task_name="cmd_remove_and_commit",
                                    config_dir=my_config_dir,
                                    rel_working_dir=my_rel_working_dir)
     task = AutoGitTask.parse(config)
 
-    # for this test we execute four steps in test_configs/remove_and_commit;
+    # for this test we execute four steps in test_configs/cmd_remove_and_commit;
     # the second command will add and commit two files; in step
     # three one of the files should be removed. Step 4 tries to use the command with a file
     # that does not exist which should result in an error

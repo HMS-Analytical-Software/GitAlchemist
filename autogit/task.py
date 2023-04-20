@@ -13,6 +13,7 @@ class AutoGitTask():
         self.model = model
         self.config = config
         self.next_step_ind = 0
+        self.last_command = None
 
     def execute_next_step(self, skip_commands: List[str] = []):
         if self.next_step_ind == 0:
@@ -25,17 +26,19 @@ class AutoGitTask():
         cmd_name, base_command = list(list_entry.items())[0]
 
         if cmd_name in skip_commands:
-            print(f"Skipping step {self.next_step_ind}/{len(self.model.commands)} of {self.model.title} (is in skip_commands)")
+            print(
+                f"Skipping step {self.next_step_ind}/{len(self.model.commands)} of {self.model.title} (is in skip_commands)")
             return
-        
+
         cmd_params = base_command.dict().copy()
         # we don't need this in the log below
         del cmd_params["cmd_type"]
-        print(f"\nExecuting step {self.next_step_ind}/{len(self.model.commands)} of {self.model.title} | {base_command.__class__.__name__} | {str(cmd_params)}")
+        print(
+            f"\nExecuting step {self.next_step_ind}/{len(self.model.commands)} of {self.model.title} | {base_command.__class__.__name__} | {str(cmd_params)}")
         print("-"*70)
         base_command.__class__.execute(base_command, self.config)
         self.last_command = base_command
-    
+
     def execute_next_n_steps(self, n: int):
         for _ in range(n):
             self.execute_next_step()

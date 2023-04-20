@@ -1,8 +1,7 @@
 import os
 
+from autogit import AutoGitConfig, AutoGitTask
 from autogit.commands import CMDAdd, CMDCommit, CMDCreateFile, CMDInitBareRepo
-from autogit.config_model import AutoGitConfig
-from autogit.task import AutoGitTask
 
 from .conftest import my_config_dir, my_rel_working_dir
 from .utils import ConfigBuilder
@@ -10,7 +9,7 @@ from .utils import ConfigBuilder
 
 def test_basic_workflow(config_builder: ConfigBuilder):
     """
-    Test the basic autogit workflow. For this, we verify all steps from a sample
+    Test basic autogit workflow. For this, we verify all steps from a sample
     workflow autogit.yaml file specified in test_configs/basic_workflow. This file
     consists of four steps:
 
@@ -19,34 +18,37 @@ def test_basic_workflow(config_builder: ConfigBuilder):
       step3: add project_plan.md to index
       step4: commit message with message "Added first file" using author red
 
-    Validation code for these four steps is implemented in separate functions 
+    Validation code for these four steps is implemented in separate functions
     for better readibility (this would normally be executed a loop).
+
+    PS: This is also a good example to see how the AutoGit commands are executed in
+    general. Just follow the execution in this test file step by step.
     """
     config = config_builder.create(task_name="basic_workflow",
                                    config_dir=my_config_dir,
                                    rel_working_dir=my_rel_working_dir)
     task = AutoGitTask.parse(config)
     # make sure we have 4 commands in the autogit file as expected
-    assert (len(task.model.commands) == 4)
+    assert len(task.model.commands) == 4
     # make sure the four commands match the description above
-    assert (type(task.model.commands[0].get("init_bare_repo")) is CMDInitBareRepo)
-    assert (type(task.model.commands[1].get("create_file")) is CMDCreateFile)
-    assert (type(task.model.commands[2].get("add")) is CMDAdd)
-    assert (type(task.model.commands[3].get("commit")) is CMDCommit)
+    assert type(task.model.commands[0].get("init_bare_repo")) is CMDInitBareRepo
+    assert type(task.model.commands[1].get("create_file")) is CMDCreateFile
+    assert type(task.model.commands[2].get("add")) is CMDAdd
+    assert type(task.model.commands[3].get("commit")) is CMDCommit
     # execute the commands and check that they are executed as expected;
     # note that each function below calls execute_next_step()
     # on the task object which will "continue" execution inside the task
-    _test_1_init_bare_repo(config, task)
-    _test_2_create_file(config, task)
-    _test_3_git_add(config, task)
-    _test_4_git_commit(config, task)
+    _run_and_verify_step_1_init_bare_repo(config, task)
+    _run_and_verify_step_2_create_file(config, task)
+    _run_and_verify_step_3_git_add(config, task)
+    _run_and_verify_step_4_git_commit(config, task)
 
 
-def _test_1_init_bare_repo(config: AutoGitConfig, task: AutoGitTask):
+def _run_and_verify_step_1_init_bare_repo(config: AutoGitConfig, task: AutoGitTask):
     """verify step 1: make sure that the bare repo is created"""
     # last task
-    assert (task.last_command is None)
-    assert (task.next_step_ind == 0)
+    assert task.last_command is None
+    assert task.next_step_ind == 0
 
     # run command
     task.execute_next_step()
@@ -59,7 +61,7 @@ def _test_1_init_bare_repo(config: AutoGitConfig, task: AutoGitTask):
     assert config.bare_dir.stem == "create_add_commit"  # bare repo name we specified in autogit file
 
 
-def _test_2_create_file(config: AutoGitConfig, task: AutoGitTask):
+def _run_and_verify_step_2_create_file(config: AutoGitConfig, task: AutoGitTask):
     """verify step 2: make sure that the file project_plan.md exists in the cloned repo"""
     # last task
     assert task.last_command.cmd_type == "init_bare_repo"
@@ -75,7 +77,7 @@ def _test_2_create_file(config: AutoGitConfig, task: AutoGitTask):
     assert os.path.exists("project_plan.md")
 
 
-def _test_3_git_add(config: AutoGitConfig, task: AutoGitTask):
+def _run_and_verify_step_3_git_add(config: AutoGitConfig, task: AutoGitTask):
     """verify step 3: make sure that new file is added to the index"""
     # last task
     assert task.last_command.cmd_type == "create_file"
@@ -92,7 +94,7 @@ def _test_3_git_add(config: AutoGitConfig, task: AutoGitTask):
         "git status --short").read().strip() == "A  project_plan.md"
 
 
-def _test_4_git_commit(config: AutoGitConfig, task: AutoGitTask):
+def _run_and_verify_step_4_git_commit(config: AutoGitConfig, task: AutoGitTask):
     """verify step 4: make sure that the commit command worked as expected"""
     # last task
     assert task.last_command.cmd_type == "add"
