@@ -27,7 +27,6 @@ in case you experience any trouble.
 
 __author__ = "HSM Analytical Software"
 __copyright__ = "HSM Analytical Software"
-__credits__ = ["Robert Bauer", "Manuel Steinhorst", "Florian Huber"]
 __license__ = "GPLv3"
 __version__ = "1.0.0"
 __email__ = "info@analytical-software.de"
