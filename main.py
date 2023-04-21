@@ -1,3 +1,37 @@
+r'''
+# Autogit
+
+This CLI tool creates bare repositories from config files on
+local disc with a pre-defined history of commits. The primary purpose of this tool
+is setting up interactive tasks for git workshops or git tutorials.
+
+Please consult the readme file for more information on how to create
+autogit.yaml config files.
+
+## Usage
+
+Create tasks from default location (./configs):
+
+- All: `main.py --run-all`
+- Single: `main.py --task task_name`
+
+Create tasks from custom folder (./my/dir):
+
+- All: `main.py --config-dir ./my/dir --run-all`
+- Single: `main.py --config-dir ./my/dir --task task_name`
+
+Results will be stored in ./cwd/__timestamp__ where __timestamp__
+increase with each run. Consider removing the ./cwd directory
+in case you experience any trouble.
+'''
+
+__author__ = "HSM Analytical Software"
+__copyright__ = "HSM Analytical Software"
+__credits__ = ["Robert Bauer", "Manuel Steinhorst", "Florian Huber"]
+__license__ = "GPLv3"
+__version__ = "1.0.0"
+__email__ = "info@analytical-software.de"
+
 import argparse
 import logging
 import os
@@ -10,6 +44,7 @@ from typing import List
 from autogit.config_model import AutoGitConfig
 from autogit.task import AutoGitTask
 
+# add your own author and mail alias here
 AUTHORS = {
     'red': 'Richard Red <richard@pw-compa.ny>',
     'blue': 'Betty Blue <betty@pw-compa.ny>',
@@ -57,7 +92,8 @@ def setup_argparse() -> argparse.ArgumentParser:
 
 
 def main(config_dir: Path, tasks: List):
-    """Autogit main function
+    """
+    Autogit main function
 
     Args:
         config_dir (Path): Where the config files are stored (autogit.yaml etc)
@@ -100,7 +136,7 @@ if __name__ == "__main__":
 
     args = setup_argparse().parse_args()
 
-    # initialize logging using verbose settings (-v option)
+    # initialize logging (-v option)
     if args.verbose:
         setup_logging(logging.DEBUG)
     else:

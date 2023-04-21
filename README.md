@@ -2,43 +2,49 @@
 
 Autogit is a small framework for creating bare repositories from config files on
 local disc with a pre-defined history of commits. The primary purpose of this tool
-is setting up local environments for git workshops or git tutorials.
+is setting up interactive tasks for git workshops or git tutorials.
 
 ## Our Vision
 
-Assume you want participants to get familiar with `git status`, `git log` or some other commands. You could now set up a git repo and manually add / commit files there, hand the URL over to your workshop participants and let them play around. However, this approach has several drawbacks:
+Assume you want participants to get familiar with `git status` or `git log` or
+some other commands. You could now set up a git repo and manually add / commit
+files there, hand the URL over to your workshop participants and let them play around.
+However, this approach has several drawbacks:
 
 - Access to git repo must be provided
-- All "historical" commits in the repo are done by "you" which might be irritating
+- All "historical" commits in the repo are done by one author which could be irritating
 - Changes to the repositories (push) is difficult when you have multiple participants
-- Tasks for more complex topics might be hard to create
-- Re-use of tasks is difficult, especially when you allow changes by participants
+- Tasks for more complex topics are hard to create
+- Re-use of tasks is difficult, especially when you allow live changes by participants
 - Sharing your material with the community is difficult
 
-We **address all the above challenges with Autogit**.
-Idea is that the workshop organizer uses Autogit to prepare tasks that can be
-auto-generated from a set of config files. The framework will put out one remote repository
-for each task which can be zipped and sent to participants. They can than simply work
-with a local repo on their notebook. No remote server. No problems with multiple users.
-No costs. You could even do this without Internet access. Only difference to a "real"
+We address all the above challenges with Autogit.
+Idea is that the **workshop organizers use Autogit to prepare tasks that can be auto-generated from a set of config files**.
+The framework will put out one remote repository for each task which can be zipped and sent to participants.
+They can then simply work with a local repo on their notebook.
+No remote server. No problems with multiple users. No costs.
+You could even do this without Internet access. Only difference to a "real"
 git repository is that you use `git clone tasks/task0` instead of `git clone https://...`
 
-Autogit itself is not required in the workshop nor do the participants need any knowledge about how Autogit works. They just work with regular git commands and a file editor of their choice. Tasks for the participants could be:
+> **Note**
+> Autogit itself is not required in the workshop nor do the participants need any knowledge about how Autogit works. They just work with regular git commands and a file editor of their choice.
+
+Tasks for the participants could be:
 
 - Explain what you see in the provided repo
-- Extract a certain piece of information (who changed the Readme? who fixed the bug?)
+- Extract a certain piece of information (who changed this file? who fixed that bug?)
 - Experiment with feature branches
 - Deal with common problems such as merge conflicts
 - ...
 
-We learned that this kind of "hands-on experience" can be helpful, especially for beginners who never touched a git repo. And its also an easy way for organizers to handcraft specific scenarios. Another benefit is that the scenarios can be easily put under version control because you can re-create everything from the config files (see `configs` directory for examples). So it's a great way to share git teaching material with others!
+We learned that this kind of "hands-on experience" can be helpful, especially for beginners who never touched a git repo. And it's also an easy way for organizers to handcraft specific scenarios. Another benefit is that the scenarios can be easily put under version control because you can re-create everything from the config files (see `configs` directory for examples). So it's a great way to share git teaching material with others!
 
 ## Example
 
-Let's assume for this example we want to explore `git status` and `git log`. So we want a history of changes in our repo that the workshop participants can inspect. To achieve this, we do the following:
+Let's assume for this example we want to explore `git status` and `git log`. So we basically want a history of changes in our repo that the workshop participants can inspect and dig into. To achieve this, we do the following:
 
-1. We create the files that we want the participants to see in the repo; If the file should be changed, we prepare different versions for it, e.g., main_v1.py with the initial code and main_v2.py with code that is added later on in the history.
-2. We create an `autogit.yaml` file to define a series of actions / git commands that were executed in the history of this repository. This is where the Autogit framework comes in: we provide wrappers for frequently required activities in this context such as adding files or committing changes via different fake users.
+1. We create the files that we want the participants to see in the repo; If a file is changed multiple times, we prepare different versions for it, e.g., main_v1.py with the initial code and main_v2.py with code that is added later on in the history.
+2. We create an `autogit.yaml` file to define a series of actions and git commands that were executed in the history of this repository. This is where the Autogit framework comes in: we provide wrappers for frequently required activities in this context such as adding files or committing changes via different fake users.
 
 Let's see how such an `autogit.yaml` file looks like:
 
@@ -68,12 +74,13 @@ commands:
       command: "git push origin master"
 ```
 
-- The first command creates a bare git repository called `task_from_readme`
+- The first command creates a bare git repository called `task_from_readme`;
+  the remote repository will be stored in `cwd/.../remotes/task_from_readme`
 - The second command takes files stored in
   files/\* (left side of the => operator) and puts it to the working
   directory under the name that is specified in the right side of the => operator.
   It then adds the file via `git add` followed by `git commit` with the specified commit message.
-- The third command does the same; This command will overwrite the content of main.py with
+- The third command will overwrite the content of main.py with
   the updated code that we specified in files/main_v2.py.
 - The last command pushes the working directory to the bare repo so that the content
   is accessible when the user clones the repo.
@@ -82,7 +89,7 @@ Author aliases are used to define who made the commit.
 Timestamps are not yet supported but you could integrate them easily if you need this feature.
 
 You can run this example with `python .\main.py --task task_from_readme` which should result
-in some output like this (see Getting Started section below for further details):
+in some output like (see Getting Started section below for further details):
 
 ![Run Autogit](docs/readme_figure.png)
 
@@ -98,8 +105,8 @@ Note that the git history can be easily mapped to the `autogit.yaml` file from a
 
 ## Getting Started with Autogit
 
-We assume python and git are installed on your local machine. You can then
-execute all tasks in the prepared `configs` by following the below commands:
+We assume python and git are installed on your local machine. You can
+execute all tasks in the prepared `configs` directory by following the below commands:
 
 ```bash
 git pull https://github.com/HMS-Analytical-Software/Autogit.git
@@ -116,7 +123,7 @@ In addition to the bare repositories, Autogit will also create a working directo
 ## Getting Started with the created Remote Repositories
 
 1. Go to the appropriate `cwd/_timestamp_/` folder as it is shown in the example section above; the last run will have the highest timestamp
-2. Use ``git clone remotes/task_name my_task_name_repo` to clone a repo
+2. Use `git clone remotes/task_name my_task_name_repo` to clone a repo
 3. Alternatively: skip step 2 and use the already created task repos
 
 Please be aware that step 2 only works when the content was pushed! If you do not specify a
