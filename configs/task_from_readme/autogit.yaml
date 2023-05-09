@@ -1,0 +1,23 @@
+title: Example task created with Autogit
+commands:
+  - init_bare_repo:
+      bare: remotes/task_from_readme
+      clone_to: task_from_readme
+  - create_add_commit:
+      files:
+        - files/readme.md => readme.md
+      message: created readme
+      author: red
+  - create_add_commit:
+      files:
+        - files/some_other_file.py => some_other_file.py
+        - files/main_v1.py => main.py
+      message: added main.py and some other file
+      author: red
+  - create_add_commit:
+      files:
+        - files/main_v2.py => main.py
+      message: updated the code
+      author: red
+  - git:
+      command: "git push origin master"

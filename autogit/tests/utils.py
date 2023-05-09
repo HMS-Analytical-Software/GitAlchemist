@@ -15,7 +15,7 @@ class ConfigBuilder:
             task=task_name,
             root_dir=self.root_dir,
             config_dir=self.config_dir,
-            working_dir=self.working_dir, 
+            working_dir=self.working_dir,
             authors={
                 'red': 'Richard Red <richard@pw-compa.ny>',
                 'blue': 'Betty Blue <betty@pw-compa.ny>',

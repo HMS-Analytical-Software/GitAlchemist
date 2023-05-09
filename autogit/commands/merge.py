@@ -1,9 +1,17 @@
 from typing import Literal
+
 from autogit.cmd_base_model import CMDBaseModel
 from autogit.config_model import AutoGitConfig
 
 
 class CMDMerge(CMDBaseModel):
+    """
+    Execute the `git checkout target` command in the git working directory followed
+    by a  `git merge source` command.
+
+    Raises:
+        AutogitError: raised from cmd.os_system when the git command can not be executed
+    """
     cmd_type: Literal['merge']
     source: str
     target: str

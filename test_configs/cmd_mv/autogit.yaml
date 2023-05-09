@@ -1,0 +1,15 @@
+title: test_cmd_mv
+commands:
+  - init_bare_repo:
+      bare: remotes/git_push_test
+      clone_to: git_push_test
+  - create_add_commit:
+      files:
+        - files/main_v1.py => main.py
+        - files/readme_v1.md => readme.md
+        - files/gitignore_file => .gitignore
+      message: initial commit password generator project
+      author: red
+  - mv:
+      source: main.py
+      target: generator.py
