@@ -103,7 +103,7 @@ Usage of the cloned repo is then just plain git:
 
 Note that the git history can be easily mapped to the `gitalchemist.yaml` file from above and that the commit messages and authors are set accordingly.
 
-## Getting Started with GitAlchemist
+## Getting Started (Windows)
 
 We assume python and git are installed on your local machine. You can
 execute all tasks in the prepared `configs` directory by following the below commands:
@@ -118,7 +118,21 @@ python main.py --run-all
 ```
 
 The bare repositories will be stored in `cwd/_timestamp_/remotes/*`, one bare repo for each task.
-In addition to the bare repositories, GitAlchemist will also create a working directory by default for each task, stored in `cwd/_timestamp_/remotes/task*`. Feel free to ignore these when you only need the bare repos and the participants should clone them manually.
+In addition to the bare repositories, Autogit will also create a working directory by default for each task, stored in `cwd/_timestamp_/remotes/task*`. Feel free to ignore these when you only need the bare repos and the participants should clone them manually.
+
+## Getting Started (Linux)
+
+The commands for Linux are very similar:
+
+```bash
+git clone https://github.com/HMS-Analytical-Software/GitAlchemist.git
+cd GitAlchemist
+python -m venv venv
+. venv/bin/activate
+pip install pydantic pyyaml
+python main.py --run-all
+```
+
 
 ## Getting Started with the created Remote Repositories
 
