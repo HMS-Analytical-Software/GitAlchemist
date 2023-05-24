@@ -36,25 +36,13 @@ import logging
 import os
 import shutil
 import sys
-import time
+from datetime import datetime
 from pathlib import Path
 from typing import List
 
 from autogit.config_model import AutoGitConfig
 from autogit.task import AutoGitTask
-
-# add your own author and mail alias here
-AUTHORS = {
-    'red': 'Richard Red <richard@pw-compa.ny>',
-    'blue': 'Betty Blue <betty@pw-compa.ny>',
-    'green': 'Garry Green <garry@pw-compa.ny>',
-}
-
-EMAILS = {
-    'red': 'richard@pw-compa.ny',
-    'blue': 'betty@pw-compa.ny',
-    'green': 'garry@pw-compa.ny',
-}
+from autogit.author_information import AUTHORS, EMAILS
 
 
 def setup_logging(level):
@@ -109,7 +97,8 @@ def main(config_dir: Path, tasks: List):
     shutil.rmtree('cwd', ignore_errors=True)
 
     # create a new working directory within the cwd directory
-    working_dir = os.path.join("cwd", f"{time.time()}")
+    now = datetime.now()
+    working_dir = os.path.join("cwd", f"{now.strftime('%Y%m%d_%H%M%S') + '_' + now.strftime('%f')[:3]}")
 
     # then iterate over all tasks and run AutoGitTask
     for task in tasks:
