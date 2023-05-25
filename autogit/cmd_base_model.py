@@ -2,6 +2,7 @@ import contextlib
 import logging
 import os
 import shutil
+import shlex
 import subprocess
 import time
 from collections.abc import Generator
@@ -24,7 +25,8 @@ class CMDBaseModel(BaseModel):
 
     def os_system(self, command: str) -> int:
         self._log(command)
-        result = subprocess.run(command, shell=True, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+        command_split = shlex.split(command)
+        result = subprocess.run(command_split, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
         if result.returncode != 0:
             raise AutogitError(f"\nONE OF THE `git` COMMANDS FAILED.\n"
                                f"COMMAND: '{command}'\n"
