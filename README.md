@@ -1,3 +1,4 @@
+test
 # Autogit
 
 Autogit is a small framework for creating bare repositories from config files on
