@@ -1,5 +1,5 @@
 title: Task 6
-# Idea of the task: Do the same as for task 3, but with rebase instead of merge --> merge after rebase
+# Idea of the task: Do the same as for task 5, but with rebase instead of merge --> merge after rebase
 commands:
   -
     init_bare_repo:
