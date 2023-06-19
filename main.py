@@ -111,7 +111,8 @@ def main(config_dir: Path, tasks: List):
             config_dir=config_dir,
             working_dir=working_dir,
             authors=AUTHORS,
-            emails=EMAILS
+            emails=EMAILS, 
+            defaultBranch="master"
         )
         task = AutoGitTask.parse(config)
         task.execute_remaining_steps()

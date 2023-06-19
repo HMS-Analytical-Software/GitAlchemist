@@ -17,7 +17,8 @@ class ConfigBuilder:
             config_dir=self.config_dir,
             working_dir=self.working_dir,
             authors=AUTHORS,
-            emails=EMAILS
+            emails=EMAILS, 
+            defaultBranch="master"
         )
         return config
 
