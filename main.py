@@ -42,7 +42,7 @@ from typing import List
 
 from autogit.config_model import AutoGitConfig
 from autogit.task import AutoGitTask
-from autogit.author_information import AUTHORS, EMAILS
+from autogit.git_config_settings import AUTHORS, EMAILS, DEFAULTBRANCH
 
 
 def setup_logging(level):
@@ -112,7 +112,7 @@ def main(config_dir: Path, tasks: List):
             working_dir=working_dir,
             authors=AUTHORS,
             emails=EMAILS, 
-            defaultBranch="master"
+            defaultBranch=DEFAULTBRANCH
         )
         task = AutoGitTask.parse(config)
         task.execute_remaining_steps()

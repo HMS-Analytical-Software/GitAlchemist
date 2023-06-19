@@ -2,7 +2,7 @@ import hashlib
 from pathlib import Path
 
 from autogit.config_model import AutoGitConfig
-from autogit.author_information import AUTHORS, EMAILS
+from autogit.git_config_settings import AUTHORS, EMAILS, DEFAULTBRANCH
 
 class ConfigBuilder:
     def __init__(self, root_dir):
@@ -18,7 +18,7 @@ class ConfigBuilder:
             working_dir=self.working_dir,
             authors=AUTHORS,
             emails=EMAILS, 
-            defaultBranch="master"
+            defaultBranch=DEFAULTBRANCH
         )
         return config
 

@@ -9,3 +9,5 @@ EMAILS = {
     'blue': 'betty@pw-compa.ny',
     'green': 'garry@pw-compa.ny',
 }
+
+DEFAULTBRANCH = "master"
