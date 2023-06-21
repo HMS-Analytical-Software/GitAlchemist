@@ -25,6 +25,7 @@ class CMDBaseModel(BaseModel):
 
     def os_system(self, command: str) -> int:
         self._log(command)
+        command = command.replace("\\", "\\\\")
         command_split = shlex.split(command)
         if command_split[0] != "git":
             raise AutogitError(f"Only git commands are allowed in the autogit.yaml file. However, the following command was found: '{command_split[0]}'")
