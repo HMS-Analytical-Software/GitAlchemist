@@ -1,12 +1,12 @@
-title: Task 7
+title: Workshop 2 Task 1
 # Idea of the task: Playing a bit with the rebase commit options
 # E.g. remove commit messages of fix up commits like typos or redefine commit message
 # Branch is adding some README file to have something easily adjustable.
 commands:
   -
     init_bare_repo:
-      bare: remotes/task7
-      clone_to: task7
+      bare: remotes/task2.1
+      clone_to: task2.1
 
   -
     create_add_commit:
