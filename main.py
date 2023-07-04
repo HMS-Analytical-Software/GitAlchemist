@@ -36,6 +36,7 @@ import logging
 import os
 import shutil
 import sys
+import warnings
 from datetime import datetime
 from pathlib import Path
 from typing import List
@@ -86,6 +87,13 @@ def main(config_dir: Path, tasks: List):
         config_dir (Path): Where the config files are stored (autogit.yaml etc)
         tasks (List): List of task to execute
     """
+    defaultBranchSet = os.popen("git config --get init.defaultBranch").read().strip()
+    if defaultBranchSet != "" or defaultBranchSet != "master" or defaultBranchSet != DEFAULTBRANCH:
+        warnings.warn(f"""Git seems to not be configured to use 'master' as the default init branch name: 
+                      Querying 'git config --get init.defaultBranch' returned {defaultBranchSet}. 
+                      This can lead to breakage of the program which currently assumes that branches 
+                      are be called 'master'. Support for other default branch names will be added in 
+                      the future.""")
 
     logger = logging.getLogger(__name__)
 
