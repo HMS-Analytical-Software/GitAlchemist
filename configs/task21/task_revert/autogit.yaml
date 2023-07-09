@@ -1,0 +1,21 @@
+title: Task Utitily Reset
+commands:
+  -
+    init_bare_repo:
+      bare: remotes/task_revert
+      clone_to: task_revert
+  # start from the utility base repository with feature/api, feature/config and feature/hashstore branches
+  -
+    execute_autogit_tasks:
+      skip: False
+      tasks:
+        - task21/base_repo
+  # ------------
+  # for this task, we start from the feature/api branch; idea is that
+  # we revert a change that was made here some time ago where the api endpoint names were
+  # changed from /password to /pwd;
+  # ------------
+  -
+    git:
+      command: "git checkout feature/api"
+

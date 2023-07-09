@@ -1,0 +1,3 @@
+# some code ...
+
+__VERSION__ = "0.1.16"
