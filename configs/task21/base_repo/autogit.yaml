@@ -1,0 +1,131 @@
+# A base repo to be used for all utility tasks; the idea is that we
+# take the same code from the first workshop (password generator) and
+# start with a setup where three developers are working on
+# three feature branches at the same time
+title: Task Utitily Base Repository
+commands:
+  -
+    init_bare_repo:
+      bare: remotes/task21_base
+      clone_to: task21_base
+  -
+    execute_autogit_tasks:
+      skip: True # change to False and remove next block when you need more commit logs
+      tasks:
+        - task6
+
+ # ------------ add the basic code to main branch (without the old history to be faster)
+  -
+    create_add_commit:
+      source: files/generator_v5.py
+      target: generator.py
+      message: added generator.py
+      author: red
+  -
+    create_add_commit:
+      source: files/main_v2.py
+      target: main.py
+      message: added main.py
+      author: red
+  -
+    git:
+      command: "git push origin master"
+
+ # ------------ hashstore in feature branch
+  -
+    git:
+      command: "git checkout master"
+  -
+    git:
+      command: "git checkout -b feature/hashstore"
+  -
+    create_add_commit:
+      source: files/hashstore/hashstore_v1.py
+      target: hashstore.py
+      message: added skeleton code for password hash store
+      author: red
+  -
+    create_add_commit:
+      source: files/hashstore/generator_v6.py
+      target: generator.py
+      message: added hashstore to generator
+      author: red 
+  -
+    git:
+      command: "git push -u origin feature/hashstore"
+
+ # ------------ config system in feature branch
+  -
+    git:
+      command: "git checkout master"
+  -
+    git:
+      command: "git checkout -b feature/config"
+  -
+    create_add_commit:
+      source: files/config/config_v1.py
+      target: config.py
+      message: added basic config system
+      author: blue
+  -
+    create_add_commit:
+      source: files/config/main.py
+      target: main.py
+      message: updated main.py
+      author: blue
+  -
+    create_add_commit:
+      source: files/config/config_v2.py
+      target: config.py
+      message: add validator for password length
+      author: blue
+  -
+    create_add_commit:
+      source: files/config/config_v3.py
+      target: config.py
+      message: add special characters to config
+      author: blue
+  -
+    git:
+      command: "git push -u origin feature/config"
+
+
+ # ------------ api in feature branch
+  -
+    git:
+      command: "git checkout master"
+  -
+    git:
+      command: "git checkout -b feature/api"
+  -
+    create_add_commit:
+      source: files/api/main_v1.py
+      target: main.py
+      message: re-worked main towards fastapi
+      author: green
+  -
+    create_add_commit:
+      source: files/api/main_v2.py
+      target: main.py
+      message: changed api endpoint from /password to /pwd
+      author: green
+  -
+    create_add_commit:
+      source: files/api/main_v3.py
+      target: main.py
+      message: added basic fastapi settings
+      author: green
+  -
+    create_add_commit:
+      source: files/api/main_v4.py
+      target: main.py
+      message: added CORS
+      author: green
+  -
+    git:
+      command: "git push -u origin feature/api"
+
+  # ------------ back to master so we start clean when used with execute_autogit_tasks
+  -
+    git:
+      command: "git checkout master"
