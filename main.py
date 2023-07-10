@@ -36,25 +36,14 @@ import logging
 import os
 import shutil
 import sys
-import time
+import warnings
+from datetime import datetime
 from pathlib import Path
 from typing import List
 
 from autogit.config_model import AutoGitConfig
 from autogit.task import AutoGitTask
-
-# add your own author and mail alias here
-AUTHORS = {
-    'red': 'Richard Red <richard@pw-compa.ny>',
-    'blue': 'Betty Blue <betty@pw-compa.ny>',
-    'green': 'Garry Green <garry@pw-compa.ny>',
-}
-
-EMAILS = {
-    'red': 'richard@pw-compa.ny',
-    'blue': 'betty@pw-compa.ny',
-    'green': 'garry@pw-compa.ny',
-}
+from autogit.git_config_settings import AUTHORS, EMAILS, DEFAULTBRANCH
 
 
 def setup_logging(level):
@@ -98,6 +87,13 @@ def main(config_dir: Path, tasks: List):
         config_dir (Path): Where the config files are stored (autogit.yaml etc)
         tasks (List): List of task to execute
     """
+    defaultBranchSet = os.popen("git config --get init.defaultBranch").read().strip()
+    if defaultBranchSet != "" or defaultBranchSet != "master" or defaultBranchSet != DEFAULTBRANCH:
+        warnings.warn(f"""Git seems to not be configured to use 'master' as the default init branch name: 
+                      Querying 'git config --get init.defaultBranch' returned {defaultBranchSet}. 
+                      This can lead to breakage of the program which currently assumes that branches 
+                      are be called 'master'. Support for other default branch names will be added in 
+                      the future.""")
 
     logger = logging.getLogger(__name__)
 
@@ -109,7 +105,8 @@ def main(config_dir: Path, tasks: List):
     shutil.rmtree('cwd', ignore_errors=True)
 
     # create a new working directory within the cwd directory
-    working_dir = os.path.join("cwd", f"{time.time()}")
+    now = datetime.now()
+    working_dir = os.path.join("cwd", f"{now.strftime('%Y%m%d_%H%M%S') + '_' + now.strftime('%f')[:3]}")
 
     # then iterate over all tasks and run AutoGitTask
     for task in tasks:
@@ -122,7 +119,8 @@ def main(config_dir: Path, tasks: List):
             config_dir=config_dir,
             working_dir=working_dir,
             authors=AUTHORS,
-            emails=EMAILS
+            emails=EMAILS, 
+            defaultBranch=DEFAULTBRANCH
         )
         task = AutoGitTask.parse(config)
         task.execute_remaining_steps()

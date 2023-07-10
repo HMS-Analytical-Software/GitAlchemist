@@ -2,6 +2,7 @@ import contextlib
 import logging
 import os
 import shutil
+import shlex
 import subprocess
 import time
 from collections.abc import Generator
@@ -24,10 +25,15 @@ class CMDBaseModel(BaseModel):
 
     def os_system(self, command: str) -> int:
         self._log(command)
-        result = subprocess.run(command, shell=True, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+        command = command.replace("\\", "\\\\")
+        command_split = shlex.split(command)
+        if command_split[0] != "git":
+            raise AutogitError(f"Only git commands are allowed in the autogit.yaml file. However, the following command was found: '{command_split[0]}'")
+        result = subprocess.run(command_split, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
         if result.returncode != 0:
             raise AutogitError(f"\nONE OF THE `git` COMMANDS FAILED.\n"
                                f"COMMAND: '{command}'\n"
+                               f"GIT VERSION: {subprocess.run(['git', '--version'], stdout=subprocess.PIPE).stdout.decode('utf-8')}"
                                f"EXIT_STATUS: {result.returncode}\n"
                                f"STDERR: {result.stderr.decode('utf-8')}\n"
                                f"STDOUT: {result.stdout.decode('utf-8')}")

@@ -34,6 +34,7 @@ class AutoGitConfig(BaseModel):
     current_repo: str = None
     authors: Dict[str, str]
     emails: Dict[str, str]
+    defaultBranch: str
 
     def __init__(__pydantic_self__, **data: Any) -> None:
         super().__init__(**data)
