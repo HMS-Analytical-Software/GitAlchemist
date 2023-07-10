@@ -1,7 +1,7 @@
 from typing import Literal
 
-from autogit.cmd_base_model import CMDBaseModel
-from autogit.config_model import AutoGitConfig
+from gitalchemist.cmd_base_model import CMDBaseModel
+from gitalchemist.config_model import GitAlchemistConfig
 
 
 class CMDGit(CMDBaseModel):
@@ -18,12 +18,12 @@ class CMDGit(CMDBaseModel):
     without a wrapper.
 
     Raises:
-        AutogitError: raised from cmd.os_system when the git command can not be executed
+        GitAlchemistError: raised from cmd.os_system when the git command can not be executed
     """
     cmd_type: Literal['git']
     command: str
 
     @staticmethod
-    def execute(cmd: 'CMDGit', config: AutoGitConfig):
+    def execute(cmd: 'CMDGit', config: GitAlchemistConfig):
         with cmd.current_repo(config) as (_, _):
             cmd.os_system(cmd.command)

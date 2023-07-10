@@ -1,12 +1,12 @@
 r'''
-# Autogit
+# GitAlchemist
 
 This CLI tool creates bare repositories from config files on
 local disc with a pre-defined history of commits. The primary purpose of this tool
 is setting up interactive tasks for git workshops or git tutorials.
 
 Please consult the readme file for more information on how to create
-autogit.yaml config files.
+gitalchemist.yaml config files.
 
 ## Usage
 
@@ -41,9 +41,9 @@ from datetime import datetime
 from pathlib import Path
 from typing import List
 
-from autogit.config_model import AutoGitConfig
-from autogit.task import AutoGitTask
-from autogit.git_config_settings import AUTHORS, EMAILS, DEFAULTBRANCH
+from gitalchemist.config_model import GitAlchemistConfig
+from gitalchemist.task import GitAlchemistTask
+from gitalchemist.git_config_settings import AUTHORS, EMAILS, DEFAULTBRANCH
 
 
 def setup_logging(level):
@@ -51,7 +51,7 @@ def setup_logging(level):
         level=level,
         format="%(asctime)s [%(levelname)s] %(message)s",
         handlers=[
-            logging.FileHandler("autogit.log"),
+            logging.FileHandler("gitalchemist.log"),
             logging.StreamHandler(sys.stdout)
         ]
     )
@@ -81,10 +81,10 @@ def setup_argparse() -> argparse.ArgumentParser:
 
 def main(config_dir: Path, tasks: List):
     """
-    Autogit main function
+    GitAlchemist main function
 
     Args:
-        config_dir (Path): Where the config files are stored (autogit.yaml etc)
+        config_dir (Path): Where the config files are stored (gitalchemist.yaml etc)
         tasks (List): List of task to execute
     """
     defaultBranchSet = os.popen("git config --get init.defaultBranch").read().strip()
@@ -108,12 +108,12 @@ def main(config_dir: Path, tasks: List):
     now = datetime.now()
     working_dir = os.path.join("cwd", f"{now.strftime('%Y%m%d_%H%M%S') + '_' + now.strftime('%f')[:3]}")
 
-    # then iterate over all tasks and run AutoGitTask
+    # then iterate over all tasks and run GitAlchemistTask
     for task in tasks:
         logger.info("")
-        logger.info(f"============== RUNNING AUTOGIT TASK {task} ==============")
+        logger.info(f"============== RUNNING GITALCHEMIST TASK {task} ==============")
         logger.info("")
-        config = AutoGitConfig(
+        config = GitAlchemistConfig(
             task=task,
             root_dir=os.getcwd(),
             config_dir=config_dir,
@@ -122,11 +122,11 @@ def main(config_dir: Path, tasks: List):
             emails=EMAILS, 
             defaultBranch=DEFAULTBRANCH
         )
-        task = AutoGitTask.parse(config)
+        task = GitAlchemistTask.parse(config)
         task.execute_remaining_steps()
 
     logger.info("")
-    logger.info("============== AUTOGIT TASKS FINISHED SUCCESSFULLY ==============")
+    logger.info("============== GITALCHEMIST TASKS FINISHED SUCCESSFULLY ==============")
 
 
 if __name__ == "__main__":
@@ -144,7 +144,7 @@ if __name__ == "__main__":
     if args.run_all:
         tasks = [str(x.name) for x in args.config_dir.iterdir() if x.is_dir()]
 
-    # run autogit
+    # run gitalchemist
     main(
         config_dir=args.config_dir,
         tasks=tasks

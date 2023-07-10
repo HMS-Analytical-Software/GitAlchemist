@@ -1,7 +1,7 @@
 from typing import Literal
 
-from autogit.cmd_base_model import CMDBaseModel
-from autogit.config_model import AutoGitConfig
+from gitalchemist.cmd_base_model import CMDBaseModel
+from gitalchemist.config_model import GitAlchemistConfig
 
 
 class CMDCommit(CMDBaseModel):
@@ -12,7 +12,7 @@ class CMDCommit(CMDBaseModel):
     for examples how to use this.
 
     Note that we recommend to stick with CMDCreateAddCommit which is easier to
-    use and read in the autogit.yaml files. All our newer tasks are build exclusively
+    use and read in the gitalchemist.yaml files. All our newer tasks are build exclusively
     with CMDCreateAddCommit.
     """
     cmd_type: Literal['commit']
@@ -20,7 +20,7 @@ class CMDCommit(CMDBaseModel):
     author: str
 
     @staticmethod
-    def execute(cmd: 'CMDCommit', config: AutoGitConfig):
+    def execute(cmd: 'CMDCommit', config: GitAlchemistConfig):
         with cmd.current_repo(config) as (_, _):
             author = config.authors.get(cmd.author, cmd.author)
             c = f"git commit --date=\"format:relative:5.hours.ago\" -m \"{cmd.message}\" --author=\"{author}\""

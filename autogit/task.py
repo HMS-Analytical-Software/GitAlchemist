@@ -4,15 +4,15 @@ from typing import List
 
 import yaml
 
-from autogit.config_model import AutoGitConfig
-from autogit.task_model import AutoGitTaskModel
+from gitalchemist.config_model import GitAlchemistConfig
+from gitalchemist.task_model import GitAlchemistTaskModel
 
 logger = logging.getLogger(__name__)
 
 
-class AutoGitTask():
+class GitAlchemistTask():
 
-    def __init__(self, model: AutoGitTaskModel, config: AutoGitConfig):
+    def __init__(self, model: GitAlchemistTaskModel, config: GitAlchemistConfig):
         self.model = model
         self.config = config
         self.next_step_ind = 0
@@ -61,9 +61,9 @@ class AutoGitTask():
             self.execute_next_step(skip_commands)
 
     @staticmethod
-    def parse(config: AutoGitConfig):
-        path_to_configfile = Path.joinpath(config.config_dir, config.task, "autogit.yaml")
-        return AutoGitTask(AutoGitTaskModel(
+    def parse(config: GitAlchemistConfig):
+        path_to_configfile = Path.joinpath(config.config_dir, config.task, "gitalchemist.yaml")
+        return GitAlchemistTask(GitAlchemistTaskModel(
             **yaml.safe_load(path_to_configfile.read_text())),
             config
         )

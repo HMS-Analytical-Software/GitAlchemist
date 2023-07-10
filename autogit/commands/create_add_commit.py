@@ -1,7 +1,7 @@
 import os.path
 from typing import List, Literal
 
-from autogit import AutoGitConfig, AutogitError, CMDBaseModel
+from gitalchemist import GitAlchemistConfig, GitAlchemistError, CMDBaseModel
 
 
 class CMDCreateAddCommit(CMDBaseModel):
@@ -13,7 +13,7 @@ class CMDCreateAddCommit(CMDBaseModel):
     created within the task. This is the recommended way to build tasks.
 
     Example usage from task0: The create_add_commit block is specified in the
-    autogit.yaml file as follows:
+    gitalchemist.yaml file as follows:
 
         ```
         create_add_commit:
@@ -34,7 +34,7 @@ class CMDCreateAddCommit(CMDBaseModel):
     executed using `message` as commit message and `author` as author.
 
     Raises:
-        AutogitError: raised when the entries in files are not formatted correctly
+        GitAlchemistError: raised when the entries in files are not formatted correctly
         FileNotFoundError: raised when a file can not be found
     """
     cmd_type: Literal['create_add_commit']
@@ -45,7 +45,7 @@ class CMDCreateAddCommit(CMDBaseModel):
     author: str
 
     @staticmethod
-    def execute(cmd: 'CMDCreateAddCommit', config: AutoGitConfig):
+    def execute(cmd: 'CMDCreateAddCommit', config: GitAlchemistConfig):
         with cmd.current_repo(config) as (repo, task):
 
             # optional support for using source and target instead of files; not recommended
@@ -56,14 +56,14 @@ class CMDCreateAddCommit(CMDBaseModel):
             for entry in cmd.files:
                 splitted = entry.split("=>")
                 if len(splitted) != 2:
-                    raise AutogitError("Each entry in create_add_commit.files must be of form \"val1 => val2\"")
+                    raise GitAlchemistError("Each entry in create_add_commit.files must be of form \"val1 => val2\"")
 
                 # create
                 source = config.root_dir / task.joinpath(splitted[0].strip())
                 if not os.path.isfile(source):
                     raise FileNotFoundError(
                         f"Source file {source} in 'create_add_commit' not found. \
-                            Please check your autogit config file.")
+                            Please check your gitalchemist config file.")
                 target = repo.joinpath(splitted[1].strip())
 
                 # copy source to target

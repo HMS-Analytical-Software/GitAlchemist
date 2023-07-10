@@ -7,7 +7,7 @@ commands:
       bare: remotes/task4
       clone_to: task4
   -
-    execute_autogit_tasks:
+    execute_gitalchemist_tasks:
       skip: False
       tasks:
         - task3

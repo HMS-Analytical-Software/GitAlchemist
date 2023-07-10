@@ -3,8 +3,8 @@ from typing import Dict, List, Union
 from pydantic import BaseModel, Field, validator
 from typing_extensions import Annotated
 
-from autogit.commands import (CMDAdd, CMDCommit, CMDCreateAddCommit,
-                              CMDCreateFile, CMDExecuteAutogitTasks, CMDGit,
+from gitalchemist.commands import (CMDAdd, CMDCommit, CMDCreateAddCommit,
+                              CMDCreateFile, CMDExecuteGitAlchemistTasks, CMDGit,
                               CMDInitBareRepo, CMDMerge, CMDMv, CMDPush,
                               CMDRemoveAndCommit)
 
@@ -19,14 +19,14 @@ BaseCommand = Annotated[
         CMDPush,
         CMDGit,
         CMDCreateAddCommit,
-        CMDExecuteAutogitTasks,
+        CMDExecuteGitAlchemistTasks,
         CMDRemoveAndCommit
     ],
     Field(discriminator="cmd_type")
 ]
 
 
-class AutoGitTaskModel(BaseModel):
+class GitAlchemistTaskModel(BaseModel):
     title: str
     commands: List[Dict[str, BaseCommand]]
 
