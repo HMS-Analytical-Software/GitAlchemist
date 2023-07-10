@@ -1,7 +1,7 @@
 import pytest
 
-from autogit import AutoGitTask
-from autogit.commands import (CMDCreateAddCommit, CMDInitBareRepo,
+from gitalchemist import GitAlchemistTask
+from gitalchemist.commands import (CMDCreateAddCommit, CMDInitBareRepo,
                               CMDRemoveAndCommit)
 
 from .conftest import my_config_dir, my_rel_working_dir
@@ -13,7 +13,7 @@ def test_remove_and_commit(config_builder: ConfigBuilder):
     config = config_builder.create(task_name="cmd_remove_and_commit",
                                    config_dir=my_config_dir,
                                    rel_working_dir=my_rel_working_dir)
-    task = AutoGitTask.parse(config)
+    task = GitAlchemistTask.parse(config)
 
     # for this test we execute four steps in test_configs/cmd_remove_and_commit;
     # the second command will add and commit two files; in step

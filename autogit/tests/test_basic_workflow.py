@@ -1,7 +1,7 @@
 import os
 
-from autogit import AutoGitConfig, AutoGitTask
-from autogit.commands import CMDAdd, CMDCommit, CMDCreateFile, CMDInitBareRepo
+from gitalchemist import GitAlchemistConfig, GitAlchemistTask
+from gitalchemist.commands import CMDAdd, CMDCommit, CMDCreateFile, CMDInitBareRepo
 
 from .conftest import my_config_dir, my_rel_working_dir
 from .utils import ConfigBuilder
@@ -9,8 +9,8 @@ from .utils import ConfigBuilder
 
 def test_basic_workflow(config_builder: ConfigBuilder):
     """
-    Test basic autogit workflow. For this, we verify all steps from a sample
-    workflow autogit.yaml file specified in test_configs/basic_workflow. This file
+    Test basic gitalchemist workflow. For this, we verify all steps from a sample
+    workflow gitalchemist.yaml file specified in test_configs/basic_workflow. This file
     consists of four steps:
 
       step1: init_bare_repo in remotes/create_add_commit and clone it to basic_workflow
@@ -21,14 +21,14 @@ def test_basic_workflow(config_builder: ConfigBuilder):
     Validation code for these four steps is implemented in separate functions
     for better readibility (this would normally be executed a loop).
 
-    PS: This is also a good example to see how the AutoGit commands are executed in
+    PS: This is also a good example to see how the GitAlchemist commands are executed in
     general. Just follow the execution in this test file step by step.
     """
     config = config_builder.create(task_name="basic_workflow",
                                    config_dir=my_config_dir,
                                    rel_working_dir=my_rel_working_dir)
-    task = AutoGitTask.parse(config)
-    # make sure we have 4 commands in the autogit file as expected
+    task = GitAlchemistTask.parse(config)
+    # make sure we have 4 commands in the gitalchemist file as expected
     assert len(task.model.commands) == 4
     # make sure the four commands match the description above
     assert type(task.model.commands[0].get("init_bare_repo")) is CMDInitBareRepo
@@ -44,7 +44,7 @@ def test_basic_workflow(config_builder: ConfigBuilder):
     _run_and_verify_step_4_git_commit(config, task)
 
 
-def _run_and_verify_step_1_init_bare_repo(config: AutoGitConfig, task: AutoGitTask):
+def _run_and_verify_step_1_init_bare_repo(config: GitAlchemistConfig, task: GitAlchemistTask):
     """verify step 1: make sure that the bare repo is created"""
     # last task
     assert task.last_command is None
@@ -58,10 +58,10 @@ def _run_and_verify_step_1_init_bare_repo(config: AutoGitConfig, task: AutoGitTa
     # check command results
     assert config.bare_dir.exists()  # bare repo should exist now
     assert config.bare_dir.is_dir()  # must be a directory
-    assert config.bare_dir.stem == "create_add_commit"  # bare repo name we specified in autogit file
+    assert config.bare_dir.stem == "create_add_commit"  # bare repo name we specified in gitalchemist file
 
 
-def _run_and_verify_step_2_create_file(config: AutoGitConfig, task: AutoGitTask):
+def _run_and_verify_step_2_create_file(config: GitAlchemistConfig, task: GitAlchemistTask):
     """verify step 2: make sure that the file project_plan.md exists in the cloned repo"""
     # last task
     assert task.last_command.cmd_type == "init_bare_repo"
@@ -77,7 +77,7 @@ def _run_and_verify_step_2_create_file(config: AutoGitConfig, task: AutoGitTask)
     assert os.path.exists("project_plan.md")
 
 
-def _run_and_verify_step_3_git_add(config: AutoGitConfig, task: AutoGitTask):
+def _run_and_verify_step_3_git_add(config: GitAlchemistConfig, task: GitAlchemistTask):
     """verify step 3: make sure that new file is added to the index"""
     # last task
     assert task.last_command.cmd_type == "create_file"
@@ -94,7 +94,7 @@ def _run_and_verify_step_3_git_add(config: AutoGitConfig, task: AutoGitTask):
         "git status --short").read().strip() == "A  project_plan.md"
 
 
-def _run_and_verify_step_4_git_commit(config: AutoGitConfig, task: AutoGitTask):
+def _run_and_verify_step_4_git_commit(config: GitAlchemistConfig, task: GitAlchemistTask):
     """verify step 4: make sure that the commit command worked as expected"""
     # last task
     assert task.last_command.cmd_type == "add"
@@ -130,4 +130,4 @@ def _run_and_verify_step_4_git_commit(config: AutoGitConfig, task: AutoGitTask):
     os.chdir(config.repo_dir)
     log = os.popen("git log").read()
     assert "Author: Richard Red <richard@pw-compa.ny>" in log
-    assert "Added first file" in log  # commit message as defined in autogit.yaml
+    assert "Added first file" in log  # commit message as defined in gitalchemist.yaml

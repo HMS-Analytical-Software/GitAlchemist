@@ -11,7 +11,7 @@ permissions:
   checks: write
 
 jobs:
-  autogit-tests:
+  gitalchemist-tests:
     name: Run command tests
     strategy:
       matrix:
@@ -30,6 +30,6 @@ jobs:
       - name: Junit Report ${{ matrix.os }}
         uses: dorny/test-reporter@v1
         with:
-          name: AutoGit test report ${{ matrix.os }}
+          name: GitAlchemist test report ${{ matrix.os }}
           path: "**/junit.xml"
           reporter: java-junit

@@ -1,7 +1,7 @@
 from typing import Literal
 
-from autogit.cmd_base_model import CMDBaseModel
-from autogit.config_model import AutoGitConfig
+from gitalchemist.cmd_base_model import CMDBaseModel
+from gitalchemist.config_model import GitAlchemistConfig
 
 
 class CMDMerge(CMDBaseModel):
@@ -10,7 +10,7 @@ class CMDMerge(CMDBaseModel):
     by a  `git merge source` command.
 
     Raises:
-        AutogitError: raised from cmd.os_system when the git command can not be executed
+        GitAlchemistError: raised from cmd.os_system when the git command can not be executed
     """
     cmd_type: Literal['merge']
     source: str
@@ -18,7 +18,7 @@ class CMDMerge(CMDBaseModel):
     delete_source: bool
 
     @staticmethod
-    def execute(cmd: 'CMDMerge', config: AutoGitConfig):
+    def execute(cmd: 'CMDMerge', config: GitAlchemistConfig):
         with cmd.current_repo(config) as (_, _):
             c = f"git checkout {cmd.target}"
             cmd.os_system(c)

@@ -1,7 +1,7 @@
 import os
 
-from autogit import AutoGitTask
-from autogit.commands import CMDCreateAddCommit, CMDInitBareRepo, CMDPush
+from gitalchemist import GitAlchemistTask
+from gitalchemist.commands import CMDCreateAddCommit, CMDInitBareRepo, CMDPush
 
 from .conftest import my_config_dir, my_rel_working_dir
 from .utils import ConfigBuilder
@@ -9,7 +9,7 @@ from .utils import ConfigBuilder
 
 def test_cmd_push(config_builder: ConfigBuilder):
     """
-    Test push command. For this we use the autogit.yaml file specified
+    Test push command. For this we use the gitalchemist.yaml file specified
     in test_configs/cmd_push which consists of three steps:
 
       step1: init_bare_repo
@@ -22,7 +22,7 @@ def test_cmd_push(config_builder: ConfigBuilder):
     config = config_builder.create(task_name="cmd_push",
                                    config_dir=my_config_dir,
                                    rel_working_dir=my_rel_working_dir)
-    task = AutoGitTask.parse(config)
+    task = GitAlchemistTask.parse(config)
 
     # make sure we have the correct config file
     assert len(task.model.commands) == 3

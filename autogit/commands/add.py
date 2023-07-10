@@ -1,7 +1,7 @@
 from typing import List, Literal
 
-from autogit.cmd_base_model import CMDBaseModel
-from autogit.config_model import AutoGitConfig
+from gitalchemist.cmd_base_model import CMDBaseModel
+from gitalchemist.config_model import GitAlchemistConfig
 
 
 class CMDAdd(CMDBaseModel):
@@ -15,14 +15,14 @@ class CMDAdd(CMDBaseModel):
     for examples how to use this.
 
     Note that we recommend to stick with CMDCreateAddCommit which is easier to
-    use and read in the autogit.yaml files. All our newer tasks are build exclusively
+    use and read in the gitalchemist.yaml files. All our newer tasks are build exclusively
     with CMDCreateAddCommit.
     """
     cmd_type: Literal['add']
     files: List[str]
 
     @staticmethod
-    def execute(cmd: 'CMDAdd', config: AutoGitConfig):
+    def execute(cmd: 'CMDAdd', config: GitAlchemistConfig):
         with cmd.current_repo(config) as (_, _):
             for f in cmd.files:
                 cmd.os_system(f"git add {f}")

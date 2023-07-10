@@ -11,8 +11,8 @@ from typing import Tuple
 
 from pydantic import BaseModel
 
-from autogit.config_model import AutoGitConfig
-from autogit.exceptions import AutogitError
+from gitalchemist.config_model import GitAlchemistConfig
+from gitalchemist.exceptions import GitAlchemistError
 
 logger = logging.getLogger(__name__)
 
@@ -28,10 +28,10 @@ class CMDBaseModel(BaseModel):
         command = command.replace("\\", "\\\\")
         command_split = shlex.split(command)
         if command_split[0] != "git":
-            raise AutogitError(f"Only git commands are allowed in the autogit.yaml file. However, the following command was found: '{command_split[0]}'")
+            raise GitAlchemistError(f"Only git commands are allowed in the gitalchemist.yaml file. However, the following command was found: '{command_split[0]}'")
         result = subprocess.run(command_split, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
         if result.returncode != 0:
-            raise AutogitError(f"\nONE OF THE `git` COMMANDS FAILED.\n"
+            raise GitAlchemistError(f"\nONE OF THE `git` COMMANDS FAILED.\n"
                                f"COMMAND: '{command}'\n"
                                f"GIT VERSION: {subprocess.run(['git', '--version'], stdout=subprocess.PIPE).stdout.decode('utf-8')}"
                                f"EXIT_STATUS: {result.returncode}\n"
@@ -49,7 +49,7 @@ class CMDBaseModel(BaseModel):
         time.sleep(0.5)
 
     @contextlib.contextmanager
-    def current_repo(self, config: AutoGitConfig) -> Generator[Tuple[Path, Path], None, None]:
+    def current_repo(self, config: GitAlchemistConfig) -> Generator[Tuple[Path, Path], None, None]:
         configs_task_dir = config.config_dir / config.task
         if not os.path.exists(configs_task_dir):
             raise FileNotFoundError(f"Task directory '{configs_task_dir}' does not exist.")

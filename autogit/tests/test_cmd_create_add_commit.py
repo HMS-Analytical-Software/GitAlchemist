@@ -1,6 +1,6 @@
 import os
 
-from autogit import AutoGitTask
+from gitalchemist import GitAlchemistTask
 
 from .utils import ConfigBuilder, hashfile
 from .conftest import my_config_dir, my_rel_working_dir
@@ -8,12 +8,12 @@ from .conftest import my_config_dir, my_rel_working_dir
 
 def test_create_add_commit(config_builder: ConfigBuilder):
     """Test the create_add_commit command which adds a new file to the index
-    and directly commits it. This test uses the same autogit.yaml file as the
+    and directly commits it. This test uses the same gitalchemist.yaml file as the
     test below (see comments there for further details)."""
     config = config_builder.create(task_name="cmd_create_add_commit",
                                    config_dir=my_config_dir,
                                    rel_working_dir=my_rel_working_dir)
-    task = AutoGitTask.parse(config)
+    task = GitAlchemistTask.parse(config)
 
     # execute the first two steps
     task.execute_next_n_steps(2)
@@ -32,7 +32,7 @@ def test_create_add_commit_multiple_uses(config_builder: ConfigBuilder):
     """
     It is common that the same file is overwritten multiple
     times using multiple create_add_commit commands with different
-    source files but same target file. In the example autogit.yaml file
+    source files but same target file. In the example gitalchemist.yaml file
     used for this test (test_configs/create_add_commit) the project_plan.md file
     is updated three times with different contents and commit messages.
 
@@ -48,7 +48,7 @@ def test_create_add_commit_multiple_uses(config_builder: ConfigBuilder):
     config = config_builder.create(task_name="cmd_create_add_commit",
                                    config_dir=my_config_dir,
                                    rel_working_dir=my_rel_working_dir)
-    task = AutoGitTask.parse(config)
+    task = GitAlchemistTask.parse(config)
 
     # execute the first three steps
     task.execute_next_n_steps(3)

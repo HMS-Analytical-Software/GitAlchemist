@@ -3,7 +3,7 @@ from .add import CMDAdd
 from .commit import CMDCommit
 from .create_add_commit import CMDCreateAddCommit
 from .create_file import CMDCreateFile
-from .execute_autogit_tasks import CMDExecuteAutogitTasks
+from .execute_gitalchemist_tasks import CMDExecuteGitAlchemistTasks
 from .git import CMDGit
 from .init_bare_repo import CMDInitBareRepo
 from .merge import CMDMerge

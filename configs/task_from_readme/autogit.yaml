@@ -1,4 +1,4 @@
-title: Example task created with Autogit
+title: Example task created with GitAlchemist
 commands:
   - init_bare_repo:
       bare: remotes/task_from_readme

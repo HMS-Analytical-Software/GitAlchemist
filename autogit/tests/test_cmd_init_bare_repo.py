@@ -1,8 +1,8 @@
 import os
 from pathlib import Path
 
-from autogit import AutoGitTask
-from autogit.commands import CMDInitBareRepo
+from gitalchemist import GitAlchemistTask
+from gitalchemist.commands import CMDInitBareRepo
 
 from .conftest import my_config_dir, my_rel_working_dir
 from .utils import ConfigBuilder
@@ -13,7 +13,7 @@ def test_init_bare_repo(config_builder: ConfigBuilder):
     config = config_builder.create(task_name="cmd_init_bare_repo",
                                    config_dir=my_config_dir,
                                    rel_working_dir=my_rel_working_dir)
-    task = AutoGitTask.parse(config)
+    task = GitAlchemistTask.parse(config)
 
     # make sure we have only the init_bare_repo command
     assert len(task.model.commands) == 1

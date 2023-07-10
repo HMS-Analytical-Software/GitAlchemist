@@ -2,28 +2,28 @@ import os
 import shutil
 from typing import Literal
 
-from autogit import AutogitError, CMDBaseModel
-from autogit.config_model import AutoGitConfig
+from gitalchemist import GitAlchemistError, CMDBaseModel
+from gitalchemist.config_model import GitAlchemistConfig
 
 
 class CMDInitBareRepo(CMDBaseModel):
     """
     Creates an empty bare repository that is used as remote target. This command
-    will usually be placed at the top of each autogit.yaml file. Only exception are
-    autogit.yaml files that call other autogit.yaml files with a CMDInitBareRepo
+    will usually be placed at the top of each gitalchemist.yaml file. Only exception are
+    gitalchemist.yaml files that call other gitalchemist.yaml files with a CMDInitBareRepo
     command.
 
     Raises:
-        AutogitError: raised when the repository can not be created
+        GitAlchemistError: raised when the repository can not be created
     """
     cmd_type: Literal['init_bare_repo']
     bare: str
     clone_to: str
 
     @staticmethod
-    def execute(cmd: 'CMDInitBareRepo', config: AutoGitConfig):
+    def execute(cmd: 'CMDInitBareRepo', config: GitAlchemistConfig):
         if not cmd.bare.startswith("remotes/"):
-            raise AutogitError("bare parameter of init_bare_repo should always start with remotes/")
+            raise GitAlchemistError("bare parameter of init_bare_repo should always start with remotes/")
 
         save_cwd = os.getcwd()
         cmd.switch_dir_and_log(config.root_dir)

@@ -1,6 +1,6 @@
 from typing import List, Literal
 
-from autogit import AutoGitConfig, AutogitError, CMDBaseModel
+from gitalchemist import GitAlchemistConfig, GitAlchemistError, CMDBaseModel
 
 
 class CMDRemoveAndCommit(CMDBaseModel):
@@ -9,7 +9,7 @@ class CMDRemoveAndCommit(CMDBaseModel):
     by `git commit`.
 
     Raises:
-        AutogitError: raised from cmd.os_system when the git command can not be executed
+        GitAlchemistError: raised from cmd.os_system when the git command can not be executed
         FileNotFoundError: raised when one ore more of the to-be-removed files can not be found
     """
     cmd_type: Literal['remove_and_commit']
@@ -18,11 +18,11 @@ class CMDRemoveAndCommit(CMDBaseModel):
     author: str
 
     @staticmethod
-    def execute(cmd: 'CMDRemoveAndCommit', config: AutoGitConfig):
+    def execute(cmd: 'CMDRemoveAndCommit', config: GitAlchemistConfig):
         with cmd.current_repo(config) as (repo, _):
 
             if len(cmd.files) == 0:
-                raise AutogitError("remove_and_commit cannot be used with empty files parameter")
+                raise GitAlchemistError("remove_and_commit cannot be used with empty files parameter")
 
             # make sure the files exist in the git working directory (=repo parameter)
             missing_files = []

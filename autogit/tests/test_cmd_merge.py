@@ -1,7 +1,7 @@
 import os
 
-from autogit import AutoGitTask
-from autogit.commands import (CMDCreateAddCommit, CMDGit, CMDInitBareRepo,
+from gitalchemist import GitAlchemistTask
+from gitalchemist.commands import (CMDCreateAddCommit, CMDGit, CMDInitBareRepo,
                               CMDMerge, CMDPush)
 
 from .conftest import my_config_dir, my_rel_working_dir
@@ -10,7 +10,7 @@ from .utils import ConfigBuilder
 
 def test_cmd_merge(config_builder: ConfigBuilder):
     """
-    Test checkout and merge command with autogit. For this we use the autogit.yaml file specified
+    Test checkout and merge command with gitalchemist. For this we use the gitalchemist.yaml file specified
     in test_configs/cmd_merge which consists of the following steps:
 
       step1: init_bare_repo
@@ -25,7 +25,7 @@ def test_cmd_merge(config_builder: ConfigBuilder):
     config = config_builder.create(task_name="cmd_merge",
                                    config_dir=my_config_dir,
                                    rel_working_dir=my_rel_working_dir)
-    task = AutoGitTask.parse(config)
+    task = GitAlchemistTask.parse(config)
 
     # make sure we have the correct config file
     assert type(task.model.commands[0].get("init_bare_repo")) is CMDInitBareRepo
