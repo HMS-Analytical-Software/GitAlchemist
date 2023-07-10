@@ -36,8 +36,7 @@ class CMDInitBareRepo(CMDBaseModel):
 
         # switch to the bare repository folder and create a new bare git repo
         cmd.switch_dir_and_log(config.bare_dir)
-        cmd.os_system("git --bare init .")
-
+        cmd.os_system(f"git init --bare --initial-branch={config.defaultBranch} .")
         cmd.switch_dir_and_log(config.working_dir)
 
         # delete the working repo if it already exists, config.repo_dir is later needed by
@@ -55,6 +54,7 @@ class CMDInitBareRepo(CMDBaseModel):
         # set git config otherwise subsequent commits will fail
         cmd.os_system(f"git config user.name \"{config.authors.get('red')}\"")
         cmd.os_system(f"git config user.email \"{config.emails.get('red')}\"")
+        cmd.os_system(f"git config init.defaultBranch \"{config.defaultBranch}\"")
 
         # set the current_repo parameter in config file
         config.current_repo = cmd.clone_to
