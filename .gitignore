@@ -13,8 +13,8 @@ venv
 .idea
 cwd
 configs/old
-autogit_venv
-autogit_venv_py3.11
+gitalchemist_venv
+gitalchemist_venv_py3.11
 .vscode/
 test-report.xml
-autogit.log
+gitalchemist.log
