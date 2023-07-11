@@ -1,0 +1,24 @@
+# This is a helper repository that we use as a submodule
+# in task_submodules; it contains some dummy utility code
+# that is shared across different projects (a "company util package")
+title: Task 21 Company Utility Repo
+commands:
+  -
+    init_bare_repo:
+      bare: remotes/company_utils
+      clone_to: company_utils
+  -
+    create_add_commit:
+      source: files/company_secrets.py
+      target: company_secrets.py
+      message: company_secrets
+      author: red
+  -
+    create_add_commit:
+      source: files/company_logging.py
+      target: company_logging.py
+      message: company_logging
+      author: red
+  -
+    git:
+      command: "git push origin master"
