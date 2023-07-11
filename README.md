@@ -120,6 +120,20 @@ python main.py --run-all
 The bare repositories will be stored in `cwd/_timestamp_/remotes/*`, one bare repo for each task.
 In addition to the bare repositories, GitAlchemist will also create a working directory by default for each task, stored in `cwd/_timestamp_/remotes/task*`. Feel free to ignore these when you only need the bare repos and the participants should clone them manually.
 
+
+## Getting Started using Linux
+
+The commands for Linux are very similar:
+
+```bash
+git clone https://github.com/HMS-Analytical-Software/GitAlchemist.git
+cd GitAlchemist
+python -m venv venv
+. venv/bin/activate
+pip install pydantic pyyaml
+python main.py --run-all
+```
+
 ## Getting Started with the created Remote Repositories
 
 1. Go to the appropriate `cwd/_timestamp_/` folder as it is shown in the example section above; the last run will have the highest timestamp
