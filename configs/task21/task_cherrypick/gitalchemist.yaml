@@ -6,7 +6,7 @@ commands:
       clone_to: task_cherrypick
   # start from the utility base repository with feature/api, feature/config and feature/hashstore branches
   -
-    execute_autogit_tasks:
+    execute_gitalchemist_tasks:
       skip: False
       tasks:
         - task21/base_repo

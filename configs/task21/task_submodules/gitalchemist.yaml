@@ -5,7 +5,7 @@ commands:
       bare: remotes/task_submodules
       clone_to: task_submodules
   -
-    execute_autogit_tasks:
+    execute_gitalchemist_tasks:
       skip: False
       tasks:
         - task21/base_repo
