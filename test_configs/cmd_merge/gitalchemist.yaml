@@ -9,7 +9,7 @@ commands:
       message: readme
       author: red
   - push:
-      master: true
+      main: true
   - git:
       command: "git checkout -b feature/start_project"
   - create_add_commit:
@@ -22,7 +22,7 @@ commands:
       command: "git push -u origin feature/start_project"
   - merge:
       source: feature/start_project
-      target: master
+      target: main
       delete_source: false
   - push:
-      master: true
+      main: true

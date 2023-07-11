@@ -10,4 +10,4 @@ AUTHORS = {
     'green': f"Garry Green <{EMAILS.get('green', '')}>",
 }
 
-DEFAULTBRANCH = "master"
+DEFAULTBRANCH = "main"

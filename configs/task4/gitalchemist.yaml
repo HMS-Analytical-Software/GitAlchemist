@@ -1,6 +1,6 @@
 title: Task 4
-# Idea of the task: create new feature branch and do some code changes to work with add commit push --> then merge to master
-# Important: starting from a ready feature branch that is behind master but causes no merge conflict --> merge from master into feature branch to have current code base
+# Idea of the task: create new feature branch and do some code changes to work with add commit push --> then merge to main
+# Important: starting from a ready feature branch that is behind main but causes no merge conflict --> merge from main into feature branch to have current code base
 commands:
   -
     init_bare_repo:
@@ -48,7 +48,7 @@ commands:
       author: red
   -
     git:
-      command: "git push origin master"
+      command: "git push origin main"
 
     # now the second developer betty starts with feature development
     # and creates the first generator class; she creates a new feature branch
@@ -80,7 +80,7 @@ commands:
       command: "git push -u origin feature/generator_with_random_numbers_and_letters_2"
   -
     git:
-      command: "git checkout master"
+      command: "git checkout main"
 
   - create_add_commit:
       source: files/generator_v6.py
@@ -89,7 +89,7 @@ commands:
       author: red
   -
     git:
-      command: "git push origin master"
+      command: "git push origin main"
   -
     git:
       command: "git checkout feature/generator_with_random_numbers_and_letters_1"

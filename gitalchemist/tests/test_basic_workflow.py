@@ -103,14 +103,14 @@ def _run_and_verify_step_4_git_commit(config: GitAlchemistConfig, task: GitAlche
 
     # prior to the commit, we expect the git status to be as follows:
     # --------------- git status output ---------------
-    # On branch master
+    # On branch main
     # No commits yet
     #
     # Changes to be committed:
     # (use "git rm --cached <file>..." to unstage)
     #         new file:   project_plan.md
     status = os.popen("git status").read()
-    assert "On branch master" in status
+    assert "On branch main" in status
     assert "No commits yet" in status
     assert "Changes to be committed" in status
     assert "new file:" in status

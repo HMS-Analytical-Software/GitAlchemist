@@ -88,11 +88,11 @@ def main(config_dir: Path, tasks: List):
         tasks (List): List of task to execute
     """
     defaultBranchSet = os.popen("git config --get init.defaultBranch").read().strip()
-    if defaultBranchSet != "" or defaultBranchSet != "master" or defaultBranchSet != DEFAULTBRANCH:
-        warnings.warn(f"""Git seems to not be configured to use 'master' as the default init branch name: 
+    if defaultBranchSet != "" or defaultBranchSet != "main" or defaultBranchSet != DEFAULTBRANCH:
+        warnings.warn(f"""Git seems to not be configured to use 'main' as the default init branch name: 
                       Querying 'git config --get init.defaultBranch' returned {defaultBranchSet}. 
                       This can lead to breakage of the program which currently assumes that branches 
-                      are be called 'master'. Support for other default branch names will be added in 
+                      are be called 'main'. Support for other default branch names will be added in 
                       the future.""")
 
     logger = logging.getLogger(__name__)
