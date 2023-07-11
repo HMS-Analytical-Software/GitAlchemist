@@ -71,7 +71,7 @@ def setup_argparse() -> argparse.ArgumentParser:
     group.add_argument("--task",
                        type=str,
                        default="task1",
-                       help="task to run (default: task1)")
+                       help="task to run (default: task1); you can add multiple tasks separated with comma")
     group.add_argument("--run-all",
                        action="store_true",
                        help="run all tasks in the configuration directory")
@@ -140,9 +140,17 @@ if __name__ == "__main__":
         setup_logging(logging.INFO)
 
     # get the tasks to be executed
-    tasks = [args.task] if not args.run_all else []
+    tasks = []
     if args.run_all:
+        # in case we want to run all tasks: add everything from the config_dir
         tasks = [str(x.name) for x in args.config_dir.iterdir() if x.is_dir()]
+    else:
+        if "," in args.task:
+            # in case we have multiple tasks separated with ,
+            tasks = args.task.split(",")
+        else:
+            # default case for a single task
+            tasks = [args.task]
 
     # run gitalchemist
     main(
