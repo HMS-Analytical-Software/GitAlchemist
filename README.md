@@ -118,7 +118,7 @@ python main.py --run-all
 ```
 
 The bare repositories will be stored in `cwd/_timestamp_/remotes/*`, one bare repo for each task.
-In addition to the bare repositories, Autogit will also create a working directory by default for each task, stored in `cwd/_timestamp_/remotes/task*`. Feel free to ignore these when you only need the bare repos and the participants should clone them manually.
+In addition to the bare repositories, GitAlchemist will also create a working directory by default for each task, stored in `cwd/_timestamp_/remotes/task*`. Feel free to ignore these when you only need the bare repos and the participants should clone them manually.
 
 ## Getting Started (Linux)
 
