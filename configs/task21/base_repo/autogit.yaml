@@ -31,28 +31,29 @@ commands:
     git:
       command: "git push origin master"
 
- # ------------ hashstore in feature branch
+
+ # ------------ blacklist in feature branch
   -
     git:
       command: "git checkout master"
   -
     git:
-      command: "git checkout -b feature/hashstore"
+      command: "git checkout -b feature/blacklist"
   -
     create_add_commit:
-      source: files/hashstore/hashstore_v1.py
-      target: hashstore.py
+      source: files/blacklist/blacklist_v1.py
+      target: blacklist.py
       message: added skeleton code for password hash store
       author: red
   -
     create_add_commit:
-      source: files/hashstore/generator_v6.py
+      source: files/blacklist/generator_v6.py
       target: generator.py
-      message: added hashstore to generator
+      message: added blacklist to generator
       author: red 
   -
     git:
-      command: "git push -u origin feature/hashstore"
+      command: "git push -u origin feature/blacklist"
 
  # ------------ config system in feature branch
   -

@@ -1,7 +1,7 @@
 import random
 import string
 
-from .hashstore import HashStore
+from .blacklist import BlackList
 
 class PasswordGenerator():
     """Class-based password generator"""
@@ -11,7 +11,7 @@ class PasswordGenerator():
         self.password_characters = list(string.ascii_letters + string.digits + "!@#$%^&*()")
         """All characters to be used for the generated passwords"""
         
-        self.hashstore = HashStore()
+        self.blacklist = BlackList()
         """Stores a list of password hashes that should not be used"""
 
     def generate_password(self, password_length = 10):
