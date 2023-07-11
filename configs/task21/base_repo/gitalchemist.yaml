@@ -9,7 +9,7 @@ commands:
       bare: remotes/task21_base
       clone_to: task21_base
   -
-    execute_autogit_tasks:
+    execute_gitalchemist_tasks:
       skip: True # change to False and remove next block when you need more commit logs
       tasks:
         - task6
