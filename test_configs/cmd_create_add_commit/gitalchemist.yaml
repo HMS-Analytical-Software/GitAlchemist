@@ -19,4 +19,4 @@ commands:
       message: removed unnecessary parts of the project plan
       author: red
   - git:
-      command: "git push origin master"
+      command: "git push origin main"

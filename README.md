@@ -71,7 +71,7 @@ commands:
       message: updated the code
       author: red
   - git:
-      command: "git push origin master"
+      command: "git push origin main"
 ```
 
 - The first command creates a bare git repository called `task_from_readme`;

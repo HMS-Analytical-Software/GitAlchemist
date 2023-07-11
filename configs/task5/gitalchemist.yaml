@@ -21,7 +21,7 @@ commands:
         command: "git checkout -b feature/generator_with_random_numbers_and_letters_5"
   -
     git:
-      command: "git rebase master"
+      command: "git rebase main"
   -
     create_add_commit:
       source: files/generator_v1.py
@@ -37,7 +37,7 @@ commands:
       author: blue
   -
     git:
-      command: "git checkout master"
+      command: "git checkout main"
   -
     git:
       command: "git merge feature/generator_with_random_numbers_and_letters_5"
@@ -65,11 +65,11 @@ commands:
   -
     merge:
       source: feature/adjustable_password_characters
-      target: master
+      target: main
       delete_source: False
   -
     git:
-      command: "git push -u origin master"
+      command: "git push -u origin main"
   -
     git:
       command: "git branch -d feature/adjustable_password_characters"

@@ -20,4 +20,4 @@ commands:
       message: updated the code
       author: red
   - git:
-      command: "git push origin master"
+      command: "git push origin main"

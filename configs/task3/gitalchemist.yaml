@@ -1,5 +1,5 @@
 title: Task 3
-# Idea of the task: create new feature branch and do some code changes to work with add commit push --> then merge to master
+# Idea of the task: create new feature branch and do some code changes to work with add commit push --> then merge to main
 commands:
   -
     init_bare_repo:
@@ -55,4 +55,4 @@ commands:
       author: blue
   -
     git:
-      command: "git push origin master"
+      command: "git push origin main"

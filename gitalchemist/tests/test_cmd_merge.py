@@ -15,12 +15,12 @@ def test_cmd_merge(config_builder: ConfigBuilder):
 
       step1: init_bare_repo
       step2: create_add_commit (readme.md)
-      step3: push master
+      step3: push main
       step4: checkout new feature branch
       step5: create_add_commit (main.py, .gitignore)
       step6: push feature branch
       step7: merge
-      step8: push master
+      step8: push main
     """
     config = config_builder.create(task_name="cmd_merge",
                                    config_dir=my_config_dir,
@@ -38,15 +38,15 @@ def test_cmd_merge(config_builder: ConfigBuilder):
     assert type(task.model.commands[7].get("push")) is CMDPush
 
     # run the first three steps that will create a readme file, add, commit and
-    # push to master
+    # push to main
     task.execute_next_n_steps(3)
     assert task.last_command.cmd_type == "push"
     assert task.next_step_ind == 3
 
-    # we expect that git status says that we are on master then
+    # we expect that git status says that we are on main then
     os.chdir(config.repo_dir)
     status = os.popen("git status").read()
-    assert "On branch master" in status
+    assert "On branch main" in status
     assert "branch is up to date" in status
 
     # run the checkout command
@@ -60,12 +60,12 @@ def test_cmd_merge(config_builder: ConfigBuilder):
     assert "On branch feature/start_project" in status
 
     # run the next two commands where we add data to the feature branch and
-    # merge the changes back to master (but not pushing yet)
+    # merge the changes back to main (but not pushing yet)
     task.execute_next_n_steps(3)
     assert task.last_command.cmd_type == "merge"
     assert task.next_step_ind == 7
 
-    # we expect that we are now ahead of origin/master by one commit
+    # we expect that we are now ahead of origin/main by one commit
     os.chdir(config.repo_dir)
     status = os.popen("git status").read()
-    assert "Your branch is ahead of 'origin/master' by 1 commit" in status
+    assert "Your branch is ahead of 'origin/main' by 1 commit" in status
