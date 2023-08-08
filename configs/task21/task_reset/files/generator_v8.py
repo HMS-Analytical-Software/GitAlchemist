@@ -9,7 +9,8 @@ class PasswordGenerator():
 
     def __init__(self):
         """Constructor for the password generator"""
-        self.password_characters = list(string.ascii_letters + string.digits + "!@#$%^&*()")
+        cfg = Config()
+        self.password_characters = list(cfg.CHARS_DEFAULT + cfg.CHARS_SPECIAL)
 
     def generate_password(self, password_length=Config.DEFAULT_PASSWORD_LENGTH):
         """The function that generates the password"""
