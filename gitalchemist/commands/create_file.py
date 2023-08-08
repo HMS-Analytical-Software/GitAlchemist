@@ -24,7 +24,7 @@ class CMDCreateFile(CMDBaseModel):
     @staticmethod
     def execute(cmd: 'CMDCreateFile', config: GitAlchemistConfig):
         with cmd.current_repo(config) as (repo, task):
-            source = task.joinpath(cmd.source)
+            source = config.root_dir / task.joinpath(cmd.source.strip())
             target = repo.joinpath(cmd.target)
             cmd._log("cp", source, target)
             shutil.copy(source, target)

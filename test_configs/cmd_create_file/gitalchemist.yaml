@@ -1,0 +1,11 @@
+title: test_cmd_create_file
+commands:
+  - init_bare_repo:
+      bare: remotes/create_file
+      clone_to: create_file
+  - create_file:
+      source: files/project_plan_v1.md
+      target: project_plan.md
+  - create_file:
+      source: files/some_other_file.txt
+      target: some_other_file.txt
