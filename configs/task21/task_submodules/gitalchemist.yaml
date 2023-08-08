@@ -11,7 +11,7 @@ commands:
         - task21/base_repo
   -
     git:
-      command: "git checkout master"
+      command: "git checkout main"
   -
     git:
       command: "git -c protocol.file.allow=always submodule add ../company_utils"

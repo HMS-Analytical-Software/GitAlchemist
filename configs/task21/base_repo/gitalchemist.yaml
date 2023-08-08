@@ -29,13 +29,13 @@ commands:
       author: red
   -
     git:
-      command: "git push origin master"
+      command: "git push origin main"
 
 
  # ------------ blacklist in feature branch
   -
     git:
-      command: "git checkout master"
+      command: "git checkout main"
   -
     git:
       command: "git checkout -b feature/blacklist"
@@ -58,7 +58,7 @@ commands:
  # ------------ config system in feature branch
   -
     git:
-      command: "git checkout master"
+      command: "git checkout main"
   -
     git:
       command: "git checkout -b feature/config"
@@ -94,7 +94,7 @@ commands:
  # ------------ api in feature branch
   -
     git:
-      command: "git checkout master"
+      command: "git checkout main"
   -
     git:
       command: "git checkout -b feature/api"
@@ -126,7 +126,7 @@ commands:
     git:
       command: "git push -u origin feature/api"
 
-  # ------------ back to master so we start clean when used with execute_autogit_tasks
+  # ------------ back to main so we start clean when used with execute_autogit_tasks
   -
     git:
-      command: "git checkout master"
+      command: "git checkout main"
