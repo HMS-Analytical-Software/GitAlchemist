@@ -44,13 +44,13 @@ commands:
       source: files/blacklist/blacklist_v1.py
       target: blacklist.py
       message: added skeleton code for password hash store
-      author: red
+      author: blacklist
   -
     create_add_commit:
       source: files/blacklist/generator_v6.py
       target: generator.py
       message: added blacklist to generator
-      author: red 
+      author: blacklist 
   -
     git:
       command: "git push -u origin feature/blacklist"
@@ -67,25 +67,25 @@ commands:
       source: files/config/config_v1.py
       target: config.py
       message: added basic config system
-      author: blue
+      author: config
   -
     create_add_commit:
       source: files/config/main.py
       target: main.py
       message: updated main.py
-      author: blue
+      author: config
   -
     create_add_commit:
       source: files/config/config_v2.py
       target: config.py
       message: add validator for password length
-      author: blue
+      author: config
   -
     create_add_commit:
       source: files/config/config_v3.py
       target: config.py
       message: add special characters to config
-      author: blue
+      author: config
   -
     git:
       command: "git push -u origin feature/config"
@@ -103,25 +103,25 @@ commands:
       source: files/api/main_v1.py
       target: main.py
       message: re-worked main towards fastapi
-      author: green
+      author: api
   -
     create_add_commit:
       source: files/api/main_v2.py
       target: main.py
       message: changed api endpoint from /password to /pwd
-      author: green
+      author: api
   -
     create_add_commit:
       source: files/api/main_v3.py
       target: main.py
       message: added basic fastapi settings
-      author: green
+      author: api
   -
     create_add_commit:
       source: files/api/main_v4.py
       target: main.py
       message: added CORS
-      author: green
+      author: api
   -
     git:
       command: "git push -u origin feature/api"
