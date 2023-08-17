@@ -54,7 +54,7 @@ pycodestyle==2.10.0
 pydantic==1.10.4
 pydeck==0.8.0
 pyflakes==3.0.1
-Pygments==2.14.0
+Pygments==2.15.0
 Pympler==1.0.1
 pyrsistent==0.19.3
 pytest==7.2.1
