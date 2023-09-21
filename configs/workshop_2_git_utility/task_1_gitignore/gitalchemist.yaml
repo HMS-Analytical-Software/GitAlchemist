@@ -2,13 +2,13 @@ title: Task Utitily Gitignore
 commands:
   -
     init_bare_repo:
-      bare: remotes/task_gitignore
-      clone_to: task_gitignore
+      bare: remotes/task1_gitignore
+      clone_to: task1_gitignore
   -
     execute_gitalchemist_tasks:
       skip: False
       tasks:
-        - task21/base_repo
+        - workshop_2_git_utility/base_repo
   # ------------
   # for this task, we start from the feature/config branch
   # (doesnt really matter) and create a bunch of stuff that should usually
@@ -22,8 +22,8 @@ commands:
   -
     create_add_commit:
       files: 
-      - ../task_reset/files/docs/ => .docs/
-      - ../task_reset/files/testdata/ => .testdata/
+      - ../task_3_reset/files/docs/ => .docs/
+      - ../task_3_reset/files/testdata/ => .testdata/
       - files/inputs/ => inputs/
       - files/logs/ => logs/
       - files/__pycache__/ => __pycache__/

@@ -1,14 +1,14 @@
-title: Task Utitily Reset
+title: Task Utitily Stash
 commands:
   -
     init_bare_repo:
-      bare: remotes/task_stash
-      clone_to: task_stash
+      bare: remotes/task7_stash
+      clone_to: task7_stash
   -
     execute_gitalchemist_tasks:
       skip: False
       tasks:
-        - task21/base_repo
+        - workshop_2_git_utility/base_repo
   # ------------
   # for this task, we start from the feature/config branch and make some
   # changes in the working directory that we can use to explore the behavior

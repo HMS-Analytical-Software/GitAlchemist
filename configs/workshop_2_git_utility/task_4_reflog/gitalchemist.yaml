@@ -1,0 +1,11 @@
+title: Task Utitily Play with Reflog
+commands:
+  -
+    init_bare_repo:
+      bare: remotes/task4_reflog
+      clone_to: task4_reflog
+  -
+    execute_gitalchemist_tasks:
+      skip: False
+      tasks:
+        - workshop_2_git_utility/task_3_reset

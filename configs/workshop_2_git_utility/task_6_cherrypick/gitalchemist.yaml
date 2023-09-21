@@ -1,20 +1,30 @@
-title: Task Utitily Reset
+title: Task Utitily Cherrypick
 commands:
   -
     init_bare_repo:
-      bare: remotes/task_cherrypick
-      clone_to: task_cherrypick
+      bare: remotes/task6_cherrypick
+      clone_to: task6_cherrypick
   # start from the utility base repository with feature/api, feature/config and feature/hashstore branches
   -
     execute_gitalchemist_tasks:
       skip: False
       tasks:
-        - task21/base_repo
+        - workshop_2_git_utility/base_repo
   # ------------
   # for this task, we start from the feature/api branch; idea is that
   # we cherry-pick the config commit from feature/config to use it while
   # the config branch is still under development
   # ------------
+  -
+    git:
+      command: "git checkout -b feature/api_config"
+  -
+    create_add_commit:
+      files: 
+      - files/config.py => config.py
+      message: added basic api configuration parameters
+      author: api
+
   -
     git:
       command: "git checkout feature/api"

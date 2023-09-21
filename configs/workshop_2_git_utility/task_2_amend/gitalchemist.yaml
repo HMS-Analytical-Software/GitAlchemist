@@ -1,0 +1,25 @@
+title: Task Utitily Amend
+commands:
+  -
+    init_bare_repo:
+      bare: remotes/task2_amend
+      clone_to: task2_amend
+  -
+    execute_gitalchemist_tasks:
+      skip: False
+      tasks:
+        - workshop_2_git_utility/base_repo
+  # ------------
+  # for this task, we start from the feature/config branch
+  # (doesnt really matter) and make a commit where we messed up
+  # the commit message; however, the staged files are correct
+  # ------------
+  -
+    git:
+      command: "git checkout feature/config"
+  -
+    create_add_commit:
+      files: 
+      - files/readme.md => readme.md
+      message: added raedme file for the project
+      author: config

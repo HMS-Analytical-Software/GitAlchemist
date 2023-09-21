@@ -6,8 +6,8 @@ title: Task Utitily Base Repository
 commands:
   -
     init_bare_repo:
-      bare: remotes/task21_base
-      clone_to: task21_base
+      bare: remotes/task_base_repo
+      clone_to: task_base_repo
   -
     execute_gitalchemist_tasks:
       skip: True # change to False and remove next block when you need more commit logs

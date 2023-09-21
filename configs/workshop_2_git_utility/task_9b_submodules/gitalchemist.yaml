@@ -2,13 +2,13 @@ title: Task Utitily Submodules
 commands:
   -
     init_bare_repo:
-      bare: remotes/task_submodules
-      clone_to: task_submodules
+      bare: remotes/task9b_submodules
+      clone_to: task9b_submodules
   -
     execute_gitalchemist_tasks:
       skip: False
       tasks:
-        - task21/base_repo
+        - workshop_2_git_utility/base_repo
   -
     git:
       command: "git checkout main"

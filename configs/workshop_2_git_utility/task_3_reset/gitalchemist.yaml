@@ -2,13 +2,13 @@ title: Task Utitily Reset
 commands:
   -
     init_bare_repo:
-      bare: remotes/task_reset
-      clone_to: task_reset
+      bare: remotes/task3_reset
+      clone_to: task3_reset
   -
     execute_gitalchemist_tasks:
       skip: False
       tasks:
-        - task21/base_repo
+        - workshop_2_git_utility/base_repo
   # ------------
   # for this task, we start from the feature/config branch
   # the config user has accidently added and commited a bunch of files
@@ -22,9 +22,18 @@ commands:
     create_add_commit:
       files: 
       - files/docs/ => .docs/
+      message: added .docs folder
+      author: config
+  -
+    create_add_commit:
+      files: 
       - files/testdata/ => .testdata/
-      - files/generator_v8.py => generator_v8.py
-      message: last -- updated generator to use chars from config
-      author: config  
-
-
+      message: added .testdata folder
+      author: config
+  -
+    create_add_commit:
+      files: 
+      - files/core/ => core/
+      - files/plugins/ => plugins/
+      message: last - added boilerplate structure for advanved config core
+      author: config
