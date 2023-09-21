@@ -1,0 +1,2 @@
+- Specify the project's licensing terms and conditions.
+- Mention any third-party libraries or resources used in the project.

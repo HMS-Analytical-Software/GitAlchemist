@@ -1,0 +1,44 @@
+title: Task Utitily Gitignore
+commands:
+  -
+    init_bare_repo:
+      bare: remotes/task1_gitignore
+      clone_to: task1_gitignore
+  -
+    execute_gitalchemist_tasks:
+      skip: False
+      tasks:
+        - workshop_2_git_utility/base_repo
+  # ------------
+  # for this task, we start from the feature/config branch
+  # (doesnt really matter) and create a bunch of stuff that should usually
+  # go into the .gitignore file; we will then have the task to specify a
+  # valid .gitignore files (or multiple) to filter out what we do not want
+  # to be staged
+  # ------------
+  -
+    git:
+      command: "git checkout feature/config"
+  -
+    create_add_commit:
+      files: 
+      - ../task_3_reset/files/docs/ => .docs/
+      - ../task_3_reset/files/testdata/ => .testdata/
+      - files/inputs/ => inputs/
+      - files/logs/ => logs/
+      - files/__pycache__/ => __pycache__/
+      - files/__pycache__/ => core/__pycache__/
+      - files/core.py => core/core.py
+      - files/core.py => core/utils.py
+      - files/__pycache__/generator.cpython-311.pyc =>  core/__pycache__/core.cpython-311.pyc
+      - files/__pycache__/generator.cpython-311.pyc =>  core/__pycache__/utils.cpython-311.pyc
+      - files/my_main_test.py => my_main_test.py
+      - files/my_main_test2.py => my_main_test2.py
+      - files/todos.txt => todos.txt
+      message: tmp
+      author: config  
+  -
+    # note that the above command used commit which we do not want for the task; we
+    # simply reset the last commit so everything is back to beeing untracked
+    git:
+      command: "git reset HEAD~1"

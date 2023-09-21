@@ -1,0 +1,11 @@
+title: Task Utitily Reset (Copy)
+commands:
+  -
+    init_bare_repo:
+      bare: remotes/task3_reset3
+      clone_to: task3_reset3
+  -
+    execute_gitalchemist_tasks:
+      skip: False
+      tasks:
+        - workshop_2_git_utility/task_3_reset

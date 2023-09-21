@@ -73,3 +73,45 @@ def test_create_add_commit_multiple_uses(config_builder: ConfigBuilder):
     assert os.path.exists("project_plan.md")
     assert hashfile("project_plan.md") == hashfile(
         task.config.config_dir / task.config.task / "files" / "project_plan_v3.md")
+
+
+
+def test_create_add_commit_with_folders(config_builder: ConfigBuilder):
+    """
+    It is common that the same file is overwritten multiple
+    times using multiple create_add_commit commands with different
+    source files but same target file. In the example gitalchemist.yaml file
+    used for this test (test_configs/create_add_commit) the project_plan.md file
+    is updated three times with different contents and commit messages.
+
+      step1: init_bare_repo
+      step2: create_add_commit (files/project_plan_v1.md => project_plan.md)
+      step3: create_add_commit (files/project_plan_v2.md => project_plan.md)
+      step4: create_add_commit (files/project_plan_v3.md => project_plan.md)
+      step5: git push
+
+    Note that step5 is not relevant here (i.e., not used) but included in the
+    yaml file to give a better understanding of the structure/logic in the file.
+    """
+    config = config_builder.create(task_name="cmd_create_add_commit",
+                                   config_dir=my_config_dir,
+                                   rel_working_dir=my_rel_working_dir)
+    task = GitAlchemistTask.parse(config)
+
+    # execute the first steps that are tested in detail above
+    task.execute_next_n_steps(4)
+    assert task.last_command.cmd_type == "create_add_commit"
+    assert task.next_step_ind == 4
+
+    task.execute_next_step()
+
+    # content in the created folder must match to source definition
+    os.chdir(config.repo_dir)
+    folder1 = config.repo_dir.joinpath("folder1")
+    assert folder1.exists()
+    assert folder1.is_dir()
+    assert len(list(folder1.glob("*.md"))) == 2 # we expect exactly 2 files here
+    assert hashfile("folder1/file1.md") == hashfile(
+        task.config.config_dir / task.config.task / "files" / "folder1" / "file1.md")
+    assert hashfile("folder1/file2.md") == hashfile(
+        task.config.config_dir / task.config.task / "files" / "folder1" / "file2.md")

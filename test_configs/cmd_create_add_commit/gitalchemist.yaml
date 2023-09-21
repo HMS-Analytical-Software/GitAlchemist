@@ -18,5 +18,10 @@ commands:
         - files/project_plan_v3.md => project_plan.md
       message: removed unnecessary parts of the project plan
       author: red
+  - create_add_commit:
+      files:
+        - files/folder1 => folder1/
+      message: added folder1
+      author: red
   - git:
       command: "git push origin main"

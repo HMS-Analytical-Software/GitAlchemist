@@ -1,0 +1,11 @@
+title: Task Utitily Intro
+commands:
+  -
+    init_bare_repo:
+      bare: remotes/task0_intro
+      clone_to: task0_intro
+  -
+    execute_gitalchemist_tasks:
+      skip: False
+      tasks:
+        - workshop_2_git_utility/base_repo

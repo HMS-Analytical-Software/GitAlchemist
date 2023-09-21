@@ -1,0 +1,18 @@
+title: Task Utitily Reset
+commands:
+  -
+    init_bare_repo:
+      bare: remotes/task_reset3
+      clone_to: task_reset3
+  -
+    execute_gitalchemist_tasks:
+      skip: False
+      tasks:
+        - task21/task_reset
+  # ------------
+  # for this task, we take the same scenario as in task_reset
+  # but we push the changes
+  # ------------
+  -
+    git:
+      command: "git push"

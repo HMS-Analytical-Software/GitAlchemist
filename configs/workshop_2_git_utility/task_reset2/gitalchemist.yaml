@@ -1,0 +1,31 @@
+title: Task Utitily Reset (2)
+commands:
+  -
+    init_bare_repo:
+      bare: remotes/task_reset2
+      clone_to: task_reset2
+  -
+    execute_gitalchemist_tasks:
+      skip: False
+      tasks:
+        - workshop_2_git_utility/base_repo
+  # ------------
+  # for this task, we start from the feature/config branch
+  # the config user has accidently added and commited a bunch of files
+  # there were not intended for the given commit, namely the stuff in
+  # docs and testdata folder
+  # ------------
+  -
+    git:
+      command: "git checkout feature/config"
+  -
+    create_add_commit:
+      files: 
+      - ../task_reset/files/docs/ => .docs/
+      - ../task_reset/files/testdata/ => .testdata/
+      - ../task_reset/files/generator_v8.py => generator.py
+      message: last -- updated generator to use chars from config
+      author: config  
+  -
+    git:
+      command: "git push"

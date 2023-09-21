@@ -1,0 +1,2 @@
+- Provide guidelines for contributors who wish to enhance the generator's features.
+- Explain how to extend the functionality by adding new character sets or features.

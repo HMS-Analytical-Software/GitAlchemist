@@ -1,4 +1,6 @@
+import glob
 import os.path
+import shutil
 from typing import List, Literal
 
 from gitalchemist import GitAlchemistConfig, GitAlchemistError, CMDBaseModel
@@ -60,17 +62,40 @@ class CMDCreateAddCommit(CMDBaseModel):
 
                 # create
                 source = config.root_dir / task.joinpath(splitted[0].strip())
-                if not os.path.isfile(source):
+                
+                # make sure source definition does exist on disc
+                if not source.exists():
                     raise FileNotFoundError(
                         f"Source file {source} in 'create_add_commit' not found. \
                             Please check your gitalchemist config file.")
-                target = repo.joinpath(splitted[1].strip())
+                
+                # when the left part of the assignment is a directory
+                if os.path.isdir(source):
+                    for f in source.glob("*"):
+                        print(f)
+                        # raise error when there are subfolders
+                        if f.is_dir():
+                            raise GitAlchemistError("Recursive folders are not supported in create_add_commit")
 
-                # copy source to target
-                cmd.os_cp(source, target)
+                    target = repo.joinpath(splitted[1].strip())
+                    target.mkdir(exist_ok=True, parents=True)
+                    shutil.copytree(source, target, dirs_exist_ok=True)
 
-                # add
-                cmd.os_system(f"git add {target}")
+                    # add folder
+                    cmd.os_system(f"git add {splitted[1].strip()}")
+
+                    #raise GitAlchemistError("asd")
+
+                # when the left part of the assignment is a file
+                if os.path.isfile(source):
+
+                    target = repo.joinpath(splitted[1].strip())
+
+                    # copy source to target
+                    cmd.os_cp(source, target)
+
+                    # add
+                    cmd.os_system(f"git add {target}")
 
             # commit
             author = config.authors.get(cmd.author, cmd.author)
