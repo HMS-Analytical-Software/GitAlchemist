@@ -89,10 +89,10 @@ def main(config_dir: Path, tasks: List):
     """
     defaultBranchSet = os.popen("git config --get init.defaultBranch").read().strip()
     if defaultBranchSet != "" or defaultBranchSet != "main" or defaultBranchSet != DEFAULTBRANCH:
-        warnings.warn(f"""Git seems to not be configured to use 'main' as the default init branch name: 
-                      Querying 'git config --get init.defaultBranch' returned {defaultBranchSet}. 
-                      This can lead to breakage of the program which currently assumes that branches 
-                      are be called 'main'. Support for other default branch names will be added in 
+        warnings.warn(f"""Git seems to not be configured to use 'main' as the default init branch name:
+                      Querying 'git config --get init.defaultBranch' returned {defaultBranchSet}.
+                      This can lead to breakage of the program which currently assumes that branches
+                      are be called 'main'. Support for other default branch names will be added in
                       the future.""")
 
     logger = logging.getLogger(__name__)
@@ -119,7 +119,7 @@ def main(config_dir: Path, tasks: List):
             config_dir=config_dir,
             working_dir=working_dir,
             authors=AUTHORS,
-            emails=EMAILS, 
+            emails=EMAILS,
             defaultBranch=DEFAULTBRANCH
         )
         task = GitAlchemistTask.parse(config)
