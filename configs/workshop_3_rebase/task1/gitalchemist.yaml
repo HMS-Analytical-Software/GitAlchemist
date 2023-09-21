@@ -1,14 +1,12 @@
-title: Workshop 2 Task 2
-# Idea of the task: Playing a bit with the drop rebase commit option
-# Therefore two feature branches are used.
-# One is based on the other, so when changes of the first one are merged to master,
-# the other needs a rebase because of left commits of the merged branch.
-# Branch is adding some README file (like Task 7) to have something easily adjustable.
+title: Workshop 3 Task 1
+# Idea of the task: Playing a bit with the rebase commit options
+# E.g. remove commit messages of fix up commits like typos or redefine commit message
+# Branch is adding some README file to have something easily adjustable.
 commands:
   -
     init_bare_repo:
-      bare: remotes/task2.2
-      clone_to: task2.2
+      bare: remotes/task3.1
+      clone_to: task3.1
 
   -
     create_add_commit:
@@ -17,11 +15,9 @@ commands:
         - files/main_v1.py => main.py
       message: Create password generator project
       author: blue
-
   -
     git:
       command: "git checkout -b feature/add_readme"
-
   -
     create_add_commit:
       files:
@@ -65,66 +61,50 @@ commands:
       author: red
 
   -
-    git:
-      command: "git push -u origin feature/add_readme"
-
-  -
-    git:
-      command: "git checkout -b feature/extend_readme_with_motivation_1"
-
-  -
     create_add_commit:
       files:
         - files/README_v7.md => README.md
       message: WIP motivation
-      author: blue
+      author: red
 
   -
     create_add_commit:
       files:
         - files/README_v8.md => README.md
       message: Add a motivation section
-      author: blue
+      author: red
 
   -
     create_add_commit:
       files:
         - files/README_v9.md => README.md
       message: Adjust formatting regarding the section title sizes
-      author: blue
+      author: red
 
   -
     git:
-      command: "git push -u origin feature/extend_readme_with_motivation_1"
+      command: "git checkout -b feature/playing_with_rebase_1"
 
   -
     git:
-      command: "git checkout -b feature/extend_readme_with_motivation_2"
+      command: "git checkout -b feature/playing_with_rebase_2"
 
   -
     git:
-      command: "git push -u origin feature/extend_readme_with_motivation_2"
+      command: "git checkout -b feature/playing_with_rebase_3"
 
   -
     git:
-      command: "git checkout -b feature/extend_readme_with_motivation_3"
+      command: "git checkout -b feature/playing_with_rebase_4"
 
   -
     git:
-      command: "git push -u origin feature/extend_readme_with_motivation_3"
+      command: "git checkout -b feature/playing_with_rebase_5"
 
   -
     git:
-      command: "git checkout master"
+      command: "git checkout -b feature/playing_with_rebase_6"
 
   -
     git:
-      command: "git merge --squash feature/add_readme"
-
-  -
-    git:
-      command: "git commit -m \"Merge feature/add_readme branch to master\""
-
-  -
-    git:
-      command: "git push -u origin master"
+      command: "git checkout feature/add_readme"
