@@ -95,16 +95,4 @@ commands:
 
   -
     git:
-      command: "git checkout -b feature/playing_with_rebase_4"
-
-  -
-    git:
-      command: "git checkout -b feature/playing_with_rebase_5"
-
-  -
-    git:
-      command: "git checkout -b feature/playing_with_rebase_6"
-
-  -
-    git:
       command: "git checkout feature/add_readme"
