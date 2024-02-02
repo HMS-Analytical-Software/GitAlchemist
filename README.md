@@ -113,7 +113,7 @@ git pull https://github.com/HMS-Analytical-Software/GitAlchemist.git
 cd GitAlchemist
 py -m venv venv
 . venv/scripts/activate
-pip install pydantic pyyaml
+pip install -r requirements.txt
 python main.py --run-all
 ```
 
@@ -130,7 +130,7 @@ git clone https://github.com/HMS-Analytical-Software/GitAlchemist.git
 cd GitAlchemist
 python -m venv venv
 . venv/bin/activate
-pip install pydantic pyyaml
+pip install -r requirements.txt
 python main.py --run-all
 ```
 
