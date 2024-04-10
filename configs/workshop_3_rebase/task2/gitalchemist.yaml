@@ -7,8 +7,8 @@ title: Workshop 3 Task 2
 commands:
   -
     init_bare_repo:
-      bare: remotes/task3.2
-      clone_to: task3.2
+      bare: remotes/task2
+      clone_to: task2
 
   -
     create_add_commit:
