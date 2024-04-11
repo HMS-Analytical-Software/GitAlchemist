@@ -57,7 +57,7 @@ commands:
     create_add_commit:
       files:
         - files/README_v6.md => README.md
-      message: WIP
+      message: Add help command description
       author: red
 
   -
