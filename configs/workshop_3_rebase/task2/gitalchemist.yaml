@@ -22,96 +22,61 @@ commands:
     git:
       command: "git checkout -b feature/add_readme"
 
-  -
-    create_add_commit:
+  - create_add_commit:
       files:
         - files/README_v1.md => README.md
-      message: Create README file
+      message: Create README file with first usage README text lines
       author: red
 
-  -
-    create_add_commit:
+  - create_add_commit:
       files:
         - files/README_v2.md => README.md
-      message: Wip
-      author: red
-
-  -
-    create_add_commit:
-      files:
-        - files/README_v3.md => README.md
-      message: Add first usage README text lines
-      author: red
-
-  -
-    create_add_commit:
-      files:
-        - files/README_v4.md => README.md
       message: Add description of keyword arguments
       author: red
 
-  -
-    create_add_commit:
+  - create_add_commit:
       files:
-        - files/README_v5.md => README.md
-      message: Fix typo
+        - files/README_v3.md => README.md
+      message: Add help command description
       author: red
 
-  -
-    create_add_commit:
-      files:
-        - files/README_v6.md => README.md
-      message: WIP
-      author: red
+#  - git:
+#      command: "git push -u origin feature/add_readme"
 
-  -
-    git:
-      command: "git push -u origin feature/add_readme"
-
-  -
-    git:
+  - git:
       command: "git checkout -b feature/extend_readme_with_motivation_1"
 
-  -
-    create_add_commit:
+  - create_add_commit:
       files:
-        - files/README_v7.md => README.md
-      message: WIP motivation
-      author: blue
-
-  -
-    create_add_commit:
-      files:
-        - files/README_v8.md => README.md
+        - files/README_v4.md => README.md
       message: Add a motivation section
-      author: blue
+      author: red
 
-  -
-    create_add_commit:
+  - create_add_commit:
       files:
-        - files/README_v9.md => README.md
+        - files/README_v5.md => README.md
       message: Adjust formatting regarding the section title sizes
-      author: blue
+      author: red
 
-  -
-    git:
-      command: "git push -u origin feature/extend_readme_with_motivation_1"
+#  -
+#    git:
+#      command: "git push -u origin feature/extend_readme_with_motivation_1"
 
   -
     git:
       command: "git checkout -b feature/extend_readme_with_motivation_2"
 
-  -
-    git:
-      command: "git push -u origin feature/extend_readme_with_motivation_2"
+#  -
+#    git:
+#      command: "git push -u origin feature/extend_readme_with_motivation_2"
 
   -
     git:
       command: "git checkout -b feature/extend_readme_with_motivation_3"
 
-  -
-    git:
-      command: "git push -u origin feature/extend_readme_with_motivation_3"
+#  -
+#    git:
+#      command: "git push -u origin feature/extend_readme_with_motivation_3"
 
   -
     git:
