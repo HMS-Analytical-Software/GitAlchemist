@@ -17,7 +17,7 @@ executing==1.2.0
 flake8==6.0.0
 gitdb==4.0.10
 GitPython==3.1.41
-idna==3.4
+idna==3.7
 importlib-metadata==6.0.0
 iniconfig==2.0.0
 ipykernel==6.21.2
