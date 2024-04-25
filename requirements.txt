@@ -51,7 +51,7 @@ ptyprocess==0.7.0
 pure-eval==0.2.2
 pyarrow==14.0.1
 pycodestyle==2.10.0
-pydantic==1.10.4
+pydantic==1.10.13
 pydeck==0.8.0
 pyflakes==3.0.1
 Pygments==2.15.0
