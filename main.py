@@ -143,7 +143,10 @@ if __name__ == "__main__":
     tasks = []
     if args.run_all:
         # in case we want to run all tasks: add everything from the config_dir
-        tasks = [str(x.name) for x in args.config_dir.iterdir() if x.is_dir()]
+        # Note: we currently only include folders from /configs that contain a gitalchemist.yaml file
+        # at top level; nested folders are not supported here (i.e., --run-all will only run
+        # task_from_readme in the default setup)
+        tasks = [str(x.name) for x in args.config_dir.iterdir() if x.is_dir() and Path(x).joinpath("gitalchemist.yaml").exists()]
     else:
         if "," in args.task:
             # in case we have multiple tasks separated with ,
