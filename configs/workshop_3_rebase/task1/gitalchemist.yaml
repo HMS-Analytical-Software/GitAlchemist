@@ -1,0 +1,98 @@
+title: Workshop 3 Task 1
+# Idea of the task: Playing a bit with the rebase commit options
+# E.g. remove commit messages of fix up commits like typos or redefine commit message
+# Branch is adding some README file to have something easily adjustable.
+commands:
+  -
+    init_bare_repo:
+      bare: remotes/task1
+      clone_to: task1
+
+  -
+    create_add_commit:
+      files:
+        - files/generator_v1.py => generator.py
+        - files/main_v1.py => main.py
+      message: Create password generator project
+      author: blue
+  -
+    git:
+      command: "git checkout -b feature/add_readme"
+  -
+    create_add_commit:
+      files:
+        - files/README_v1.md => README.md
+      message: Create README file
+      author: red
+
+  -
+    create_add_commit:
+      files:
+        - files/README_v2.md => README.md
+      message: Wip
+      author: red
+
+  -
+    create_add_commit:
+      files:
+        - files/README_v3.md => README.md
+      message: Add first usage README text lines
+      author: red
+
+  -
+    create_add_commit:
+      files:
+        - files/README_v4.md => README.md
+      message: Add description of keyword arguments
+      author: red
+
+  -
+    create_add_commit:
+      files:
+        - files/README_v5.md => README.md
+      message: Fix typo
+      author: red
+
+  -
+    create_add_commit:
+      files:
+        - files/README_v6.md => README.md
+      message: Add help command description
+      author: red
+
+  -
+    create_add_commit:
+      files:
+        - files/README_v7.md => README.md
+      message: WIP motivation
+      author: red
+
+  -
+    create_add_commit:
+      files:
+        - files/README_v8.md => README.md
+      message: Add a motivation section
+      author: red
+
+  -
+    create_add_commit:
+      files:
+        - files/README_v9.md => README.md
+      message: Adjust formatting regarding the section title sizes
+      author: red
+
+  -
+    git:
+      command: "git checkout -b feature/playing_with_rebase_1"
+
+  -
+    git:
+      command: "git checkout -b feature/playing_with_rebase_2"
+
+  -
+    git:
+      command: "git checkout -b feature/playing_with_rebase_3"
+
+  -
+    git:
+      command: "git checkout feature/add_readme"
