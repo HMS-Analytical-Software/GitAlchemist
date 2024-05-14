@@ -153,6 +153,10 @@ Unit tests for the wrapper functions can be found in gitalchemist/tests. Use `py
 - Code refactoring and unit tests: Florian Huber from HMS Analytical Software
 
 
-## Started Command for Git Utility Workshop Tasks held 2023-09-14
+## Starter Command for Git Utility Workshop held 2023-09-14
 
 python main.py --task workshop_2_git_utility/company_utils,workshop_2_git_utility/task_9_submodules,workshop_2_git_utility/task_0_intro,workshop_2_git_utility/task_2_amend,workshop_2_git_utility/task_3_reset,workshop_2_git_utility/task_3_reset2,workshop_2_git_utility/task_3_reset3,workshop_2_git_utility/task_4_reflog,workshop_2_git_utility/task_6_cherrypick,workshop_2_git_utility/task_1_gitignore,workshop_2_git_utility/task_5_revert,workshop_2_git_utility/task_7_stash,workshop_2_git_utility/task_8_worktree,workshop_2_git_utility/base_repo
+
+## Starter Command for Git Rebase Workshop held 2024-04-16
+
+python main.py --task workshop_3_rebase/task1,workshop_3_rebase/task2
