@@ -1,3 +1,7 @@
+# ⚠️ This repo is archived - The functionality has been migrated to [goGitAlchemist](https://github.com/HMS-Analytical-Software/goGitAlchemist) ⚠️
+
+We decided to deprecate the Python version of GitAlchemist and move to Go implementation. The main reason behind this decision is to address the depndency setup which we found to be much simpler with a single standalone Go binary.
+
 # GitAlchemist
 
 GitAlchemist is a small framework for creating bare repositories from config files on
